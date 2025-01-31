@@ -4,10 +4,12 @@
 :root {
   --primary: #7209b7;
   --primary50: #7209b780;
+
   --black: #353535;
   --black75: #676767;
   --black50: #9b9b9b;
   --black25: #cdcdcd;
+
   --white: #ffffff;
   --white98: #fafafa;
   --white97: #f7f7f8;
@@ -48,6 +50,7 @@ body {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  background-color: #888;
 }
 
 #root {
