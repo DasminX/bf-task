@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { ActionButton } from "./ui/molecules/ActionButton";
 import { Img } from "./ui/organisms/Img";
+import { Field } from "./components/Field";
 
 export default function App() {
   const [isCreating, setIsCreating] = useState<boolean>(false);
@@ -17,7 +18,7 @@ export default function App() {
           console.log("elo");
         }}
       />
-      <Img />
+      <Field isCreating={false} />
     </main>
   );
 }
