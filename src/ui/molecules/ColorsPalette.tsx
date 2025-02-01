@@ -8,7 +8,7 @@ export const ColorsPalette = ({ className = "" }) => {
   return (
     <div className={`${className} flex justify-stretch gap-1`}>
       {TEXT_COLORS.map((color) => (
-        <TextColor color={color} selected={false} />
+        <TextColor key={color} color={color} selected={false} />
       ))}
     </div>
   );

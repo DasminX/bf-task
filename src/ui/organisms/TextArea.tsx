@@ -1,30 +1,72 @@
-import { FC } from "react";
-import { Icon } from "../atoms/Icon";
+import { FC, useContext, useState } from "react";
 import { ColorsPalette } from "../molecules/ColorsPalette";
+import { MoveHandle } from "../atoms/MoveHandle";
+import { DeleteHandle } from "../atoms/DeleteHandle";
+import { ResizeHandle } from "../atoms/ResizeHandle";
+import { useMoveResizer } from "../../hooks/use-move-resizer";
+import { AppContext, FieldType } from "../../context/AppContext";
 
 export type TextAreaProps = {
+  id: FieldType["id"];
+  parentRef: React.RefObject<HTMLElement>;
   text: string;
   placeholder: string;
+  active: FieldType["active"];
 };
 
-/* TODO */
-export const TextArea: FC<TextAreaProps> = ({ text, placeholder }) => {
+export const TextArea: FC<TextAreaProps> = ({
+  id,
+  parentRef,
+  text,
+  placeholder,
+  active,
+}) => {
+  const { removeField } = useContext(AppContext);
+
+  const { position, dimensions, handleMoveMouseDown, handleResizeMouseDown } =
+    useMoveResizer({
+      initialPosition: { x: 229, y: 446 },
+      initialSize: { height: 120, width: 350 },
+      minSize: 100,
+      parentRef,
+    });
+
+  const [textAreaValue, setTextAreaValue] = useState<string>(text);
+
   return (
-    <div className="relative w-[350px] h-[120px] py-3 px-6 border-2 border-[var(--primary)] flex justify-center items-center">
-      <div className="absolute top-0 left-0 translate-[-50%] flex justify-center items-center w-10 h-10 rounded-full bg-[var(--white)] cursor-pointer">
-        <Icon className="w-8 h-8" iconSource="move.svg" />
-      </div>
-      <div className="absolute top-0 left-full translate-[-50%] flex justify-center items-center w-6 h-6 rounded-full bg-[var(--white)] cursor-pointer">
-        <Icon className="w-4.5 h-4.5" iconSource="delete.svg" />
-      </div>
+    <div
+      className="absolute w-[350px] h-[120px] py-3 px-6 border-none border-[var(--primary)] flex justify-center items-center hover:border-2 group"
+      style={{
+        width: dimensions.width,
+        height: dimensions.height,
+        top: position.y,
+        left: position.x,
+        ...(!active ? { border: "none" } : {}),
+      }}
+    >
+      <MoveHandle
+        onMouseDown={handleMoveMouseDown}
+        className={"group-hover:flex"}
+      />
+      {active && (
+        <DeleteHandle
+          onClick={() => {
+            removeField(id);
+          }}
+        />
+      )}
       <textarea
-        className="w-full h-full text-display text-[var(--black)]"
+        className="w-full h-full text-display text-[var(--black)] resize-none outline-none overflow-hidden"
         placeholder={placeholder}
-      >
-        {text}
-      </textarea>
-      <div className="absolute top-full left-full translate-[-50%] w-5 h-5 bg-[var(--primary)] cursor-pointer rounded-full border-4 border-[var(--white)]"></div>
-      <ColorsPalette className="absolute top-full left-0.25 translate-y-[7px]" />
+        onChange={(e) => {
+          setTextAreaValue(e.currentTarget.value);
+        }}
+        value={textAreaValue}
+      ></textarea>
+      {active && <ResizeHandle onMouseDown={handleResizeMouseDown} />}
+      {active && (
+        <ColorsPalette className="absolute top-full left-0.25 translate-y-[7px]" />
+      )}
     </div>
   );
 };
