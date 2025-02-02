@@ -2,8 +2,7 @@ import { useContext } from "react";
 import { AppContext } from "../../context/AppContext";
 
 export const EditorUpperField = () => {
-  const { removeFields, resetBackground, setIsCreating } =
-    useContext(AppContext);
+  const { setIsModal } = useContext(AppContext);
   return (
     <div className="h-16 w-full flex justify-between items-center">
       {/* Logo i canvasEditor */}
@@ -17,10 +16,7 @@ export const EditorUpperField = () => {
       <button
         className="w-[90px] h-8 flex justify-between items-center cursor-pointer border-b-1 border-[var(--red)]"
         onClick={() => {
-          // TODO MODAL
-          removeFields();
-          resetBackground();
-          setIsCreating(false);
+          setIsModal(true);
         }}
       >
         <p className="w-[50px] text-body-medium text-[#CB0000]">Reset</p>

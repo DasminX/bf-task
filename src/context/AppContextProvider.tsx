@@ -11,6 +11,9 @@ export const AppContextProvider: FC<AppContextProviderProps> = ({
     useState<AppContextType["isCreating"]>(false);
   const [fields, setFields] = useState<AppContextType["fields"]>([]);
   const [bg, setBg] = useState<AppContextType["background"]>(null);
+  const [isModal, setIsModal] = useState<AppContextType["isModal"]>(false);
+
+  const setIsModalHandler = (bool: boolean) => setIsModal(bool);
 
   const setIsCreatingHandler = (bool: boolean) => {
     setIsCreating(bool);
@@ -80,6 +83,8 @@ export const AppContextProvider: FC<AppContextProviderProps> = ({
         removeFields,
         setBackground,
         resetBackground,
+        isModal,
+        setIsModal: setIsModalHandler,
       }}
     >
       {children}

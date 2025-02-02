@@ -3,9 +3,10 @@ import { Editor } from "./components/editor/Editor";
 import { useContext, useRef } from "react";
 import { onExportToPngHandler } from "./functions/export-to-png";
 import { AppContext } from "./context/AppContext";
+import { WarningModal } from "./components/modal/WarningModal";
 
 export default function App() {
-  const { changeActive } = useContext(AppContext);
+  const { changeActive, isModal } = useContext(AppContext);
   const exportRef = useRef<HTMLDivElement>(null);
 
   return (
@@ -20,6 +21,7 @@ export default function App() {
           await onExportToPngHandler(exportRef.current);
         }}
       />
+      {isModal && <WarningModal />}
     </main>
   );
 }

@@ -31,6 +31,9 @@ export type AppContextType = {
   background: string | null;
   setBackground: (bgSrc: string) => void;
   resetBackground: () => void;
+
+  isModal: boolean;
+  setIsModal: (bool: boolean) => void;
 };
 
 export const AppContext = createContext<AppContextType>({
@@ -50,4 +53,7 @@ export const AppContext = createContext<AppContextType>({
   background: null,
   setBackground: (_bgSrc: string) => {},
   resetBackground: () => {},
+
+  isModal: false,
+  setIsModal: (_bool: boolean) => {},
 });

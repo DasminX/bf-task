@@ -1,4 +1,5 @@
 import { FC } from "react";
+import { cn } from "../../functions/cn";
 
 // 18, 32, 64, 128
 export type IconProps = {
@@ -7,5 +8,5 @@ export type IconProps = {
 };
 
 export const Icon: FC<IconProps> = ({ iconSource, className = "" }) => {
-  return <img className={className} src={iconSource} />;
+  return <img className={cn(className, "select-none")} src={iconSource} />;
 };
