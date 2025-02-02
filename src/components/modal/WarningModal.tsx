@@ -33,7 +33,7 @@ export const WarningModal: FC = () => {
             setIsModal(false);
           }}
         >
-          <Icon iconSource="close.svg" className="w-8 h-8" />
+          <Icon src="close.svg" className="w-8 h-8" />
         </button>
         <WarningInfoArea />
         <div className="h-10 w-96.75 gap-8 flex items-center justify-center">

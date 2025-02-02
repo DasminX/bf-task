@@ -1,12 +1,13 @@
 import { FC, memo, useContext } from "react";
 import { TEXT_COLORS } from "../../utils/constants";
-import { ColorType, TextColor } from "../atoms/TextColor";
+import { TextColor } from "../atoms/TextColor";
 import { AppContext, FieldType } from "../../context/AppContext";
 import { cn } from "../../functions/cn";
+import { Color } from "../../utils/types";
 
 export type ColorsPaletteProps = {
   fieldId: FieldType["id"];
-  selectedColor: ColorType[number];
+  selectedColor: Color;
   className?: string;
 };
 export const ColorsPalette: FC<ColorsPaletteProps> = memo(

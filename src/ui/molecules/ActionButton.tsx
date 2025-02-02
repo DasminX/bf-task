@@ -4,11 +4,11 @@ import { AppContext } from "../../context/AppContext";
 
 export type ActionButtonProps = {
   type: "image" | "text" | "background";
-  iconSource: string;
+  src: string;
   actionText: string;
 };
 export const ActionButton: FC<ActionButtonProps> = memo(
-  ({ type, iconSource, actionText }) => {
+  ({ type, src, actionText }) => {
     const { addField, setBackground, isCreating, setIsCreating } =
       useContext(AppContext);
 
@@ -59,7 +59,7 @@ export const ActionButton: FC<ActionButtonProps> = memo(
         {/* Empty character for centering Icon purposes */}
         <p className="text-body-medium text-[var(--invisible)]">&#8192;</p>
         <div className="grow-1 flex justify-center items-center">
-          <Icon className="w-32 h-32" iconSource={iconSource} />
+          <Icon className="w-32 h-32" src={src} />
         </div>
         <p className="text-body-medium text-[var(--black)]">{actionText}</p>
       </button>

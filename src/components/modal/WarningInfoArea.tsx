@@ -3,7 +3,7 @@ import { Icon } from "../../ui/atoms/Icon";
 export const WarningInfoArea = () => {
   return (
     <div className="flex flex-col items-center">
-      <Icon iconSource="alert.svg" className="w-72.5 h-72.5" />
+      <Icon src="alert.svg" className="w-72.5 h-72.5" />
       <div className="text-center">
         <p className="text-display text-[var(--black)]">WARNING</p>
         <p className="text-body-medium text-[var(--black75)]">

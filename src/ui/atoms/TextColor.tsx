@@ -1,10 +1,9 @@
 import { FC, memo, MouseEventHandler } from "react";
-import { TEXT_COLORS } from "../../utils/constants";
 import { cn } from "../../functions/cn";
+import { Color } from "../../utils/types";
 
-export type ColorType = typeof TEXT_COLORS;
 export type TextColorProps = {
-  color: ColorType[number];
+  color: Color;
   selected: boolean;
   onClick: MouseEventHandler;
 };

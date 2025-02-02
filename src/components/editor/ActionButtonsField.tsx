@@ -5,12 +5,12 @@ import {
 } from "../../ui/molecules/ActionButton";
 
 const ACTION_BUTTONS: ActionButtonProps[] = [
-  { type: "text", actionText: "Text", iconSource: "text.svg" },
-  { type: "image", actionText: "Image", iconSource: "img.svg" },
+  { type: "text", actionText: "Text", src: "text.svg" },
+  { type: "image", actionText: "Image", src: "img.svg" },
   {
     type: "background",
     actionText: "Background",
-    iconSource: "background.svg",
+    src: "background.svg",
   },
 ];
 

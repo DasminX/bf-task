@@ -1,12 +1,12 @@
 import { createContext } from "react";
-import { ColorType } from "../ui/atoms/TextColor";
+import { Color } from "../utils/types";
 
 export type FieldType =
   | { id: string; active: boolean } & (
       | {
           type: "text";
           text: string;
-          selectedColor: ColorType[number];
+          selectedColor: Color;
         }
       | {
           type: "image";
