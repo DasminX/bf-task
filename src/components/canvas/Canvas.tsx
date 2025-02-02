@@ -2,6 +2,7 @@ import { forwardRef, ReactNode, RefObject, useContext } from "react";
 import { Img } from "../../ui/organisms/Img";
 import { TextArea } from "../../ui/organisms/TextArea";
 import { AppContext } from "../../context/AppContext";
+import { cn } from "../../functions/cn";
 
 export const Canvas = forwardRef<HTMLDivElement>((_, ref) => {
   const { isCreating, fields, background, changeActive } =
@@ -44,22 +45,18 @@ export const Canvas = forwardRef<HTMLDivElement>((_, ref) => {
   return (
     <div
       ref={ref}
-      className="relative w-[759px] h-[948px] bg-[var(--black50)] flex justify-center items-center"
+      className={cn(
+        "relative w-[759px] h-[948px] bg-[var(--black50)] flex justify-center items-center",
+        background && `bg-[url(${background})] bg-cover bg-center bg-no-repeat`
+      )}
       onClick={(e) => {
         e.preventDefault();
         e.stopPropagation();
         changeActive();
       }}
-      style={
-        background
-          ? {
-              backgroundImage: `url(${background})`,
-              backgroundSize: "cover",
-              backgroundPosition: "center center",
-              backgroundRepeat: "no-repeat",
-            }
-          : {}
-      }
+      style={{
+        ...(background && { backgroundImage: `url(${background})` }),
+      }}
     >
       {Outlet}
     </div>

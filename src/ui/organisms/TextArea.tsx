@@ -31,7 +31,7 @@ export const TextArea: FC<TextAreaProps> = ({
 
   return (
     <div
-      className="absolute w-[350px] h-[120px] py-3 px-6 border-2 border-[var(--primary)] flex justify-center items-center box-border"
+      className="absolute w-87.5 h-30 py-3 px-6 border-2 border-[var(--primary)] flex justify-center items-center box-border"
       onClick={(e) => {
         e.preventDefault();
         e.stopPropagation();
@@ -70,7 +70,7 @@ export const TextArea: FC<TextAreaProps> = ({
       {field.active && (
         <ColorsPalette
           fieldId={field.id}
-          className="absolute top-full left-0.25 translate-y-[7px]"
+          className="absolute top-full left-0.25 translate-y-1.75"
           selectedColor={field.selectedColor}
         />
       )}

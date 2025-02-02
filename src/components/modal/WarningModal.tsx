@@ -26,7 +26,7 @@ export const WarningModal: FC = () => {
 
   return createPortal(
     <div className="fixed top-0 left-0 w-screen h-screen flex justify-center items-center bg-[#67676788]">
-      <div className="relative flex flex-col items-center justify-between gap-12 py-12 px-32 bg-[var(--white)] w-[643px] h-[584px]">
+      <div className="relative flex flex-col items-center justify-between gap-12 py-12 px-32 bg-[var(--white)] w-160.75 h-146">
         <button
           className="absolute top-8 right-8 cursor-pointer select-none"
           onClick={() => {
@@ -36,14 +36,14 @@ export const WarningModal: FC = () => {
           <Icon iconSource="close.svg" className="w-8 h-8" />
         </button>
         <WarningInfoArea />
-        <div className="h-10 w-[387px] gap-8 flex items-center justify-center">
+        <div className="h-10 w-96.75 gap-8 flex items-center justify-center">
           <p
             className="text-body-medium cursor-pointer"
             onClick={() => {
               setIsModal(false);
             }}
           >
-            Canel
+            Cancel
           </p>
           <Button
             onClick={() => {

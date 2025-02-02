@@ -3,6 +3,7 @@ import { Button } from "../../ui/atoms/Button";
 import { ActionButtonsField } from "./ActionButtonsField";
 import { Divider } from "../../ui/atoms/Divider";
 import { EditorUpperField } from "./EditorUpperField";
+import { AddContentInfofield } from "./AddContentInfofield";
 
 export type EditorProps = {
   onExportToPng: () => void;
@@ -10,19 +11,14 @@ export type EditorProps = {
 
 export const Editor: FC<EditorProps> = ({ onExportToPng }) => {
   return (
-    <div className="w-[759px] h-[948px] flex flex-col gap-8">
+    <div className="w-189.75 h-237 flex flex-col gap-8">
       <EditorUpperField />
-      {/* Divider */}
       <Divider />
-      {/* Add content */}
-      <div className="w-full h-[75px] bg-[var(--white97)] py-6 px-4 rounded-[10px]">
-        <p className="text-body-bold text-[var(--black)]">Add content</p>
-      </div>
+      <AddContentInfofield />
       <ActionButtonsField />
       <Divider />
-
       <div className="h-12 w-full flex items-center justify-end">
-        <Button onClick={onExportToPng} className="w-[172px]">
+        <Button onClick={onExportToPng} className="w-43">
           Export to PNG
         </Button>
       </div>
