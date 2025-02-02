@@ -1,11 +1,10 @@
-import { FC, ReactNode, useContext, useRef } from "react";
+import { forwardRef, ReactNode, RefObject, useContext } from "react";
 import { Img } from "../ui/organisms/Img";
 import { TextArea } from "../ui/organisms/TextArea";
 import { AppContext } from "../context/AppContext";
 
-export const Field: FC = () => {
+export const Field = forwardRef<HTMLDivElement>((_, ref) => {
   const { isCreating, fields, background } = useContext(AppContext);
-  const fieldRef = useRef<HTMLDivElement>(null);
 
   let Outlet: ReactNode;
 
@@ -19,7 +18,7 @@ export const Field: FC = () => {
                 <Img
                   id={field.id}
                   key={field.id}
-                  parentRef={fieldRef}
+                  parentRef={ref as RefObject<HTMLElement>}
                   imgSource={field.imgSource}
                 />
               );
@@ -29,31 +28,31 @@ export const Field: FC = () => {
                   id={field.id}
                   key={field.id}
                   selectedColor={field.selectedColor}
-                  parentRef={fieldRef}
+                  parentRef={ref as RefObject<HTMLElement>}
                   placeholder="Type your text here"
                   text={field.text || ""}
                 />
               );
             default:
-              return <></>;
+              return null;
           }
         })}
       </>
     );
   } else {
-    Outlet = <img src="startImage.png" className="w-full h-full" />;
+    Outlet = <img src="startImage.png" className="w-full h-full" alt="Start" />;
   }
 
   return (
     <div
-      ref={fieldRef}
+      ref={ref}
       className="relative w-[759px] h-[948px] bg-[var(--black50)] flex justify-center items-center"
       style={
         background
           ? {
-              backgroundImage: `url(${background})`, // Ensure the URL is wrapped in url(...)
-              backgroundSize: "cover", // Adjust as needed (cover, contain, etc.)
-              backgroundPosition: "center center", // Centers the image
+              backgroundImage: `url(${background})`,
+              backgroundSize: "cover",
+              backgroundPosition: "center center",
               backgroundRepeat: "no-repeat",
             }
           : {}
@@ -62,4 +61,4 @@ export const Field: FC = () => {
       {Outlet}
     </div>
   );
-};
+});

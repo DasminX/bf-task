@@ -13,7 +13,11 @@ const DATA = [
   },
 ];
 
-export const Tools: FC = () => {
+export type ToolsProps = {
+  onExportToPng: () => void;
+};
+
+export const Tools: FC<ToolsProps> = ({ onExportToPng }) => {
   return (
     <div className="w-[759px] h-[948px] flex flex-col gap-8">
       <ToolsUpperField />
@@ -38,12 +42,7 @@ export const Tools: FC = () => {
       <div className="w-full h-0.5 bg-[var(--white98)]"></div>
 
       <div className="h-12 w-full flex items-center justify-end">
-        <Button
-          onClick={() => {
-            console.log("EXPORT");
-          }}
-          className="w-[172px]"
-        >
+        <Button onClick={onExportToPng} className="w-[172px]">
           Export to PNG
         </Button>
       </div>

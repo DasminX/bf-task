@@ -12,8 +12,6 @@ export const ColorsPalette: FC<ColorsPaletteProps> = memo(
   ({ fieldId, selectedColor, className = "" }) => {
     const { updateSelectedColor } = useContext(AppContext);
 
-    console.log(selectedColor);
-
     return (
       <div className={`${className} flex justify-stretch gap-1`}>
         {TEXT_COLORS.map((color) => (
