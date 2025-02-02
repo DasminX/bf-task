@@ -1,3 +1,4 @@
+import { useMemo } from "react";
 import {
   ActionButton,
   ActionButtonProps,
@@ -14,11 +15,18 @@ const ACTION_BUTTONS: ActionButtonProps[] = [
 ];
 
 export const ActionButtonsField = () => {
+  // Memoize the rendered action buttons to avoid unnecessary recalculations
+  const actionButtonsNodes = useMemo(
+    () =>
+      ACTION_BUTTONS.map((actionButton) => (
+        <ActionButton key={actionButton.actionText} {...actionButton} />
+      )),
+    [] // Empty array since ACTION_BUTTONS is static
+  );
+
   return (
     <div className="flex flex-wrap gap-x-7.25 gap-y-8 mb-16.25">
-      {ACTION_BUTTONS.map((actionButton) => {
-        return <ActionButton key={actionButton.actionText} {...actionButton} />;
-      })}
+      {actionButtonsNodes}
     </div>
   );
 };

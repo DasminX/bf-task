@@ -4,6 +4,7 @@ import { Icon } from "../../ui/atoms/Icon";
 
 export const EditorUpperField = () => {
   const { setIsModal } = useContext(AppContext);
+
   return (
     <div className="h-16 w-full flex justify-between items-center">
       {/* Logo and canvasEditor */}

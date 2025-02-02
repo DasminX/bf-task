@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { FC, useCallback } from "react";
 import { Button } from "../../ui/atoms/Button";
 import { ActionButtonsField } from "./ActionButtonsField";
 import { Divider } from "../../ui/atoms/Divider";
@@ -10,6 +10,10 @@ export type EditorProps = {
 };
 
 export const Editor: FC<EditorProps> = ({ onExportToPng }) => {
+  const handleExportClick = useCallback(() => {
+    onExportToPng();
+  }, [onExportToPng]);
+
   return (
     <div className="w-189.75 h-237 flex flex-col gap-8">
       <EditorUpperField />
@@ -18,7 +22,7 @@ export const Editor: FC<EditorProps> = ({ onExportToPng }) => {
       <ActionButtonsField />
       <Divider />
       <div className="h-12 w-full flex items-center justify-end">
-        <Button onClick={onExportToPng} className="w-43">
+        <Button onClick={handleExportClick} className="w-43">
           Export to PNG
         </Button>
       </div>

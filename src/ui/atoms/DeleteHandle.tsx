@@ -1,10 +1,10 @@
-import { FC, MouseEventHandler } from "react";
+import { FC, memo, MouseEventHandler } from "react";
 import { Icon } from "./Icon";
 
 export type DeleteHandleProps = {
   onClick: MouseEventHandler;
 };
-export const DeleteHandle: FC<DeleteHandleProps> = ({ onClick }) => {
+export const DeleteHandle: FC<DeleteHandleProps> = memo(({ onClick }) => {
   return (
     <button
       onClick={onClick}
@@ -15,4 +15,4 @@ export const DeleteHandle: FC<DeleteHandleProps> = ({ onClick }) => {
       <Icon className="w-4.5 h-4.5" iconSource="delete.svg" />
     </button>
   );
-};
+});

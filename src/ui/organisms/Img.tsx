@@ -1,4 +1,4 @@
-import { FC, useContext } from "react";
+import { FC, memo, useContext } from "react";
 import { ResizeHandle } from "../atoms/ResizeHandle";
 import { MoveHandle } from "../atoms/MoveHandle";
 import { DeleteHandle } from "../atoms/DeleteHandle";
@@ -10,7 +10,7 @@ export type ImgProps = {
   parentRef: React.RefObject<HTMLElement>;
 };
 
-export const Img: FC<ImgProps> = ({ parentRef, field }) => {
+export const Img: FC<ImgProps> = memo(({ parentRef, field }) => {
   const { removeField, changeActive } = useContext(AppContext);
   const { position, dimensions, handleMoveMouseDown, handleResizeMouseDown } =
     useMoveResizer({
@@ -51,4 +51,4 @@ export const Img: FC<ImgProps> = ({ parentRef, field }) => {
       {field.active && <ResizeHandle onMouseDown={handleResizeMouseDown} />}
     </div>
   );
-};
+});
