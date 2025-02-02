@@ -7,22 +7,23 @@ export const ToolsUpperField = () => {
   return (
     <div className="h-16 w-full flex justify-between items-center">
       {/* Logo i canvasEditor */}
-      <div className="h-full w-[299px] flex justify-between items-center">
+      <div className="h-full gap-3 flex justify-between items-center">
         <img src="logo.svg" className="w-16 h-16" />
-        <p className="text-[32px]/12 font-poppins w-[223px]">CanvasEditor</p>
+        <p className="text-display text-[var(--black75)] w-[223px]">
+          CanvasEditor
+        </p>
       </div>
       {/* Reset buton */}
       <button
-        className="w-[90px] h-8 flex justify-between items-center cursor-pointer"
+        className="w-[90px] h-8 flex justify-between items-center cursor-pointer border-b-1 border-[var(--red)]"
         onClick={() => {
-          console.log("jest");
           // TODO MODAL
           removeFields();
           resetBackground();
           setIsCreating(false);
         }}
       >
-        <p className="text-[18px]/[27px] font-poppins text-[#CB0000]">Reset</p>
+        <p className="w-[50px] text-body-medium text-[#CB0000]">Reset</p>
         <img
           src="reset.svg"
           className="w-8 h-8" // TODO color #CB0000

@@ -9,10 +9,9 @@ export type ImgProps = {
   id: FieldType["id"];
   parentRef: React.RefObject<HTMLElement>;
   imgSource: string;
-  active: FieldType["active"];
 };
 
-export const Img: FC<ImgProps> = ({ id, parentRef, imgSource, active }) => {
+export const Img: FC<ImgProps> = ({ id, parentRef, imgSource }) => {
   const { removeField } = useContext(AppContext);
   const { position, dimensions, handleMoveMouseDown, handleResizeMouseDown } =
     useMoveResizer({
@@ -32,18 +31,16 @@ export const Img: FC<ImgProps> = ({ id, parentRef, imgSource, active }) => {
         height: dimensions.height,
       }}
     >
-      {active && <MoveHandle onMouseDown={handleMoveMouseDown} />}
-      {active && (
-        <DeleteHandle
-          onClick={() => {
-            removeField(id);
-          }}
-        />
-      )}
+      <MoveHandle onMouseDown={handleMoveMouseDown} />
+      <DeleteHandle
+        onClick={() => {
+          removeField(id);
+        }}
+      />
 
       <img src={imgSource} className="object-cover w-full h-full" />
 
-      {active && <ResizeHandle onMouseDown={handleResizeMouseDown} />}
+      <ResizeHandle onMouseDown={handleResizeMouseDown} />
     </div>
   );
 };

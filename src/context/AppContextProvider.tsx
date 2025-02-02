@@ -20,6 +20,21 @@ export const AppContextProvider: FC<AppContextProviderProps> = ({
     setFields((prev) => [...prev, field]);
   };
 
+  const updateSelectedColor = (
+    fieldId: FieldType["id"],
+    color: Extract<FieldType, { type: "text" }>["selectedColor"]
+  ) => {
+    setFields((prevFields) => {
+      return prevFields.map((pf) => {
+        if (pf.id == fieldId && pf.type === "text") {
+          pf.selectedColor = color;
+        }
+
+        return pf;
+      });
+    });
+  };
+
   const removeFieldById: AppContextType["removeField"] = (fieldId) => {
     setFields((prev) => prev.filter((item) => item.id != fieldId));
   };
@@ -44,6 +59,7 @@ export const AppContextProvider: FC<AppContextProviderProps> = ({
         fields,
         background: bg,
         addField,
+        updateSelectedColor,
         removeField: removeFieldById,
         removeFields,
         setBackground,

@@ -3,12 +3,17 @@ import { FC, ReactNode } from "react";
 export type ButtonProps = {
   children: ReactNode;
   onClick: () => void;
+  className?: string;
 };
 
-export const Button: FC<ButtonProps> = ({ children, onClick }) => {
+export const Button: FC<ButtonProps> = ({
+  children,
+  onClick,
+  className = "",
+}) => {
   return (
     <button
-      className="w-32 h-10 cursor-pointer text-button text-center bg-[var(--primary)] transition-colors duration-[250ms] ease-in-out border-none rounded-[5px] hover:bg-[#550788] focus:bg-[var(--primary)] focus:outline-2 focus:outline-[var(--primary50)] disabled:bg-[var(--black25)] disabled:cursor-not-allowed"
+      className={`w-32 h-10 cursor-pointer text-button text-center bg-[var(--primary)] transition-colors duration-[250ms] ease-in-out border-none rounded-[5px] hover:bg-[#550788] focus:bg-[var(--primary)] focus:outline-2 focus:outline-[var(--primary50)] disabled:bg-[var(--black25)] disabled:cursor-not-allowed ${className}`}
       onClick={onClick}
     >
       {children}

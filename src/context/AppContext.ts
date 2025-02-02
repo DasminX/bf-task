@@ -1,10 +1,12 @@
 import { createContext } from "react";
+import { ColorType } from "../ui/atoms/TextColor";
 
 export type FieldType =
-  | { id: string; active: boolean } & (
+  | { id: string } & (
       | {
           type: "text";
           text: string;
+          selectedColor: ColorType[number];
         }
       | {
           type: "image";
@@ -18,6 +20,10 @@ export type AppContextType = {
 
   fields: FieldType[];
   addField: (field: FieldType) => void;
+  updateSelectedColor: (
+    fieldId: FieldType["id"],
+    color: Extract<FieldType, { type: "text" }>["selectedColor"]
+  ) => void;
   removeField: (fieldId: FieldType["id"]) => void;
   removeFields: () => void;
 
@@ -32,6 +38,10 @@ export const AppContext = createContext<AppContextType>({
 
   fields: [],
   addField: (field: FieldType) => {},
+  updateSelectedColor: (
+    fieldId: FieldType["id"],
+    color: Extract<FieldType, { type: "text" }>["selectedColor"]
+  ) => {},
   removeField: (fieldId: FieldType["id"]) => {},
   removeFields: () => {},
 

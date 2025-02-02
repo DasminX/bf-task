@@ -9,12 +9,6 @@ export const Field: FC = () => {
 
   let Outlet: ReactNode;
 
-  // useEffect(() => {
-  //   fieldRef.current?.addEventListener("click", (e: MouseEvent) => {
-  //     console.log(e.target);
-  //     console.log(e.currentTarget);
-  //   });
-  // }, []);
   if (isCreating) {
     Outlet = (
       <>
@@ -27,7 +21,6 @@ export const Field: FC = () => {
                   key={field.id}
                   parentRef={fieldRef}
                   imgSource={field.imgSource}
-                  active={field.active}
                 />
               );
             case "text":
@@ -35,10 +28,10 @@ export const Field: FC = () => {
                 <TextArea
                   id={field.id}
                   key={field.id}
+                  selectedColor={field.selectedColor}
                   parentRef={fieldRef}
-                  placeholder="Add text"
+                  placeholder="Type your text here"
                   text={field.text || ""}
-                  active={field.active}
                 />
               );
             default:
