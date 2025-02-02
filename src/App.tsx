@@ -1,5 +1,5 @@
-import { Field } from "./components/Field";
-import { Tools } from "./components/Tools";
+import { Canvas } from "./components/canvas/Canvas";
+import { Editor } from "./components/editor/Editor";
 import { useRef } from "react";
 import { onExportToPngHandler } from "./functions/exportToPng";
 
@@ -11,8 +11,8 @@ export default function App() {
       id="main"
       className="w-full min-h-screen h-full bg-[var(--white)] flex justify-center items-center gap-6"
     >
-      <Field ref={exportRef} />
-      <Tools
+      <Canvas ref={exportRef} />
+      <Editor
         onExportToPng={async () => {
           await onExportToPngHandler(exportRef.current);
         }}

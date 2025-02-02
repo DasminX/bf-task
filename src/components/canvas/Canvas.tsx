@@ -1,9 +1,9 @@
 import { forwardRef, ReactNode, RefObject, useContext } from "react";
-import { Img } from "../ui/organisms/Img";
-import { TextArea } from "../ui/organisms/TextArea";
-import { AppContext } from "../context/AppContext";
+import { Img } from "../../ui/organisms/Img";
+import { TextArea } from "../../ui/organisms/TextArea";
+import { AppContext } from "../../context/AppContext";
 
-export const Field = forwardRef<HTMLDivElement>((_, ref) => {
+export const Canvas = forwardRef<HTMLDivElement>((_, ref) => {
   const { isCreating, fields, background } = useContext(AppContext);
 
   let Outlet: ReactNode;

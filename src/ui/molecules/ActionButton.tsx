@@ -60,7 +60,7 @@ export const ActionButton: FC<ActionButtonProps> = ({
       {/* Empty character for centering Icon purposes */}
       <p className="text-body-medium text-[rgba(0,0,0,0)]">&#8192;</p>
       <div className="grow-1 flex justify-center items-center">
-        <Icon className="w-32 h-32 " iconSource={iconSource} />
+        <Icon className="w-32 h-32" iconSource={iconSource} />
       </div>
       <p className="text-body-medium text-[var(--black)]">{actionText}</p>
     </button>

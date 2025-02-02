@@ -1,7 +1,8 @@
 import { FC, memo, useContext } from "react";
-import { TEXT_COLORS } from "../../constants";
+import { TEXT_COLORS } from "../../utils/constants";
 import { ColorType, TextColor } from "../atoms/TextColor";
 import { AppContext, FieldType } from "../../context/AppContext";
+import { cn } from "../../functions/cn";
 
 export type ColorsPaletteProps = {
   fieldId: FieldType["id"];
@@ -13,7 +14,7 @@ export const ColorsPalette: FC<ColorsPaletteProps> = memo(
     const { updateSelectedColor } = useContext(AppContext);
 
     return (
-      <div className={`${className} flex justify-stretch gap-1`}>
+      <div className={cn(className, "flex justify-stretch gap-1")}>
         {TEXT_COLORS.map((color) => (
           <TextColor
             key={color}

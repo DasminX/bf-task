@@ -1,7 +1,7 @@
 import { useContext } from "react";
-import { AppContext } from "../context/AppContext";
+import { AppContext } from "../../context/AppContext";
 
-export const ToolsUpperField = () => {
+export const EditorUpperField = () => {
   const { removeFields, resetBackground, setIsCreating } =
     useContext(AppContext);
   return (

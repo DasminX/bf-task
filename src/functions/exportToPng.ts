@@ -46,7 +46,7 @@ export const onExportToPngHandler = async (
       ) {
         const options = {
           startIn: "downloads",
-          suggestedName: "Wojciech_Szpila_zadanie_rekrutacyjne",
+          suggestedName: "Wojciech_Szpila_zadanie_rekrutacyjne_ByteFine",
           types: [
             {
               description: "PNG Image",
@@ -66,11 +66,10 @@ export const onExportToPngHandler = async (
           console.error("Error saving the file:", saveError);
         }
       } else {
-        // Fallback: trigger a download by creating an <a> element
         const pngDataUrl = finalCanvas.toDataURL("image/png");
         const link = document.createElement("a");
         link.href = pngDataUrl;
-        link.download = "exported_image.png";
+        link.download = "Wojciech_Szpila_zadanie_rekrutacyjne_ByteFine.png";
         document.body.appendChild(link);
         link.click();
         document.body.removeChild(link);

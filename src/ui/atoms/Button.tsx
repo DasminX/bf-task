@@ -1,4 +1,5 @@
 import { FC, ReactNode } from "react";
+import { cn } from "../../functions/cn";
 
 export type ButtonProps = {
   children: ReactNode;
@@ -13,7 +14,10 @@ export const Button: FC<ButtonProps> = ({
 }) => {
   return (
     <button
-      className={`w-32 h-10 cursor-pointer text-button text-center bg-[var(--primary)] transition-colors duration-[250ms] ease-in-out border-none rounded-[5px] hover:bg-[#550788] focus:bg-[var(--primary)] focus:outline-2 focus:outline-[var(--primary50)] disabled:bg-[var(--black25)] disabled:cursor-not-allowed ${className}`}
+      className={cn(
+        `w-32 h-10 cursor-pointer text-button text-center bg-[var(--primary)] transition-colors duration-[250ms] ease-in-out border-none rounded-[5px] hover:bg-[#550788] focus:bg-[var(--primary)] focus:outline-2 focus:outline-[var(--primary50)] disabled:bg-[var(--black25)] disabled:cursor-not-allowed`,
+        className
+      )}
       onClick={onClick}
     >
       {children}

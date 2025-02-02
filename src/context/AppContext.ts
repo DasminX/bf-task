@@ -34,18 +34,18 @@ export type AppContextType = {
 
 export const AppContext = createContext<AppContextType>({
   isCreating: false,
-  setIsCreating: (bool: boolean) => {},
+  setIsCreating: (_bool: boolean) => {},
 
   fields: [],
-  addField: (field: FieldType) => {},
+  addField: (_field: FieldType) => {},
   updateSelectedColor: (
-    fieldId: FieldType["id"],
-    color: Extract<FieldType, { type: "text" }>["selectedColor"]
+    _fieldId: FieldType["id"],
+    _color: Extract<FieldType, { type: "text" }>["selectedColor"]
   ) => {},
-  removeField: (fieldId: FieldType["id"]) => {},
+  removeField: (_fieldId: FieldType["id"]) => {},
   removeFields: () => {},
 
   background: null,
-  setBackground: (bgSrc: string) => {},
+  setBackground: (_bgSrc: string) => {},
   resetBackground: () => {},
 });
