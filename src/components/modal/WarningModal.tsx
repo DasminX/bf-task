@@ -25,8 +25,8 @@ export const WarningModal: FC = () => {
   }, [el]);
 
   return createPortal(
-    <div className="fixed top-0 left-0 w-screen h-screen flex justify-center items-center bg-[#67676788]">
-      <div className="relative flex flex-col items-center justify-between gap-12 py-12 px-32 bg-[var(--white)] w-160.75 h-146">
+    <div className="fixed top-0 left-0 w-screen h-screen flex justify-center items-center bg-[#67676788] z-100">
+      <div className="relative flex flex-col items-center justify-between gap-12 py-12 px-32 bg-[var(--white)] w-160.75 h-146 z-101">
         <button
           className="absolute top-8 right-8 cursor-pointer select-none"
           onClick={() => {
