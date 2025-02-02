@@ -17,7 +17,10 @@ export const AppContextProvider: FC<AppContextProviderProps> = ({
   };
 
   const addField: AppContextType["addField"] = (field: FieldType) => {
-    setFields((prev) => [...prev, field]);
+    setFields((prev) => [
+      ...prev.map((el) => ({ ...el, active: false })),
+      field,
+    ]);
   };
 
   const updateSelectedColor = (
@@ -33,6 +36,18 @@ export const AppContextProvider: FC<AppContextProviderProps> = ({
         return pf;
       });
     });
+  };
+
+  const changeActive = (fieldId?: FieldType["id"]) => {
+    setFields((prev) =>
+      prev.map((el) => {
+        if (el.id === fieldId) {
+          return { ...el, active: true };
+        } else {
+          return { ...el, active: false };
+        }
+      })
+    );
   };
 
   const removeFieldById: AppContextType["removeField"] = (fieldId) => {
@@ -59,6 +74,7 @@ export const AppContextProvider: FC<AppContextProviderProps> = ({
         fields,
         background: bg,
         addField,
+        changeActive,
         updateSelectedColor,
         removeField: removeFieldById,
         removeFields,

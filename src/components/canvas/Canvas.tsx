@@ -4,7 +4,8 @@ import { TextArea } from "../../ui/organisms/TextArea";
 import { AppContext } from "../../context/AppContext";
 
 export const Canvas = forwardRef<HTMLDivElement>((_, ref) => {
-  const { isCreating, fields, background } = useContext(AppContext);
+  const { isCreating, fields, background, changeActive } =
+    useContext(AppContext);
 
   let Outlet: ReactNode;
 
@@ -16,21 +17,18 @@ export const Canvas = forwardRef<HTMLDivElement>((_, ref) => {
             case "image":
               return (
                 <Img
-                  id={field.id}
                   key={field.id}
+                  field={field}
                   parentRef={ref as RefObject<HTMLElement>}
-                  imgSource={field.imgSource}
                 />
               );
             case "text":
               return (
                 <TextArea
-                  id={field.id}
                   key={field.id}
-                  selectedColor={field.selectedColor}
+                  field={field}
                   parentRef={ref as RefObject<HTMLElement>}
                   placeholder="Type your text here"
-                  text={field.text || ""}
                 />
               );
             default:
@@ -47,6 +45,11 @@ export const Canvas = forwardRef<HTMLDivElement>((_, ref) => {
     <div
       ref={ref}
       className="relative w-[759px] h-[948px] bg-[var(--black50)] flex justify-center items-center"
+      onClick={(e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        changeActive();
+      }}
       style={
         background
           ? {

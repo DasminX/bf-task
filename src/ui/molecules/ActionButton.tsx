@@ -33,6 +33,7 @@ export const ActionButton: FC<ActionButtonProps> = ({
               id: Math.random().toString(),
               type: "image",
               imgSource: imgSource,
+              active: true,
             });
           } else {
             setBackground(imgSource);
@@ -49,6 +50,7 @@ export const ActionButton: FC<ActionButtonProps> = ({
             type: "text",
             text: "",
             selectedColor: "black",
+            active: true,
           });
 
           if (!isCreating) {

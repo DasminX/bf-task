@@ -5,24 +5,19 @@ import { DeleteHandle } from "../atoms/DeleteHandle";
 import { ResizeHandle } from "../atoms/ResizeHandle";
 import { useMoveResizer } from "../../hooks/use-move-resizer";
 import { AppContext, FieldType } from "../../context/AppContext";
-import { ColorType } from "../atoms/TextColor";
 
 export type TextAreaProps = {
-  id: FieldType["id"];
-  selectedColor: ColorType[number];
+  field: Extract<FieldType, { type: "text" }>;
   parentRef: React.RefObject<HTMLElement>;
-  text: string;
   placeholder: string;
 };
 
 export const TextArea: FC<TextAreaProps> = ({
-  id,
-  selectedColor,
+  field,
   parentRef,
-  text,
   placeholder,
 }) => {
-  const { removeField } = useContext(AppContext);
+  const { removeField, changeActive } = useContext(AppContext);
 
   const { position, dimensions, handleMoveMouseDown, handleResizeMouseDown } =
     useMoveResizer({
@@ -32,41 +27,53 @@ export const TextArea: FC<TextAreaProps> = ({
       parentRef,
     });
 
-  const [textAreaValue, setTextAreaValue] = useState<string>(text);
+  const [textAreaValue, setTextAreaValue] = useState<string>(field.text);
 
   return (
     <div
-      className="absolute w-[350px] h-[120px] py-3 px-6 border-2 border-[var(--primary)] flex justify-center items-center"
+      className="absolute w-[350px] h-[120px] py-3 px-6 border-2 border-[var(--primary)] flex justify-center items-center box-border"
+      onClick={(e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        changeActive(field.id);
+      }}
       style={{
         width: dimensions.width,
         height: dimensions.height,
         top: position.y,
         left: position.x,
+        ...(!field.active && { border: "none" }),
+        ...(field.active && { zIndex: 10 }),
       }}
     >
-      <MoveHandle onMouseDown={handleMoveMouseDown} />
-      <DeleteHandle
-        onClick={() => {
-          removeField(id);
-        }}
-      />
+      {field.active && <MoveHandle onMouseDown={handleMoveMouseDown} />}
+      {field.active && (
+        <DeleteHandle
+          onClick={() => {
+            removeField(field.id);
+          }}
+        />
+      )}
       <textarea
+        spellCheck={false}
         className="w-full h-full text-display text-center resize-none outline-none overflow-hidden placeholder:text-[var(--black)] placeholder:opacity-25"
         placeholder={placeholder}
         style={{
-          color: `var(--${selectedColor})`,
+          color: `var(--${field.selectedColor})`,
         }}
         onChange={(e) => {
           setTextAreaValue(e.currentTarget.value);
         }}
         value={textAreaValue}
       ></textarea>
-      <ResizeHandle onMouseDown={handleResizeMouseDown} />
-      <ColorsPalette
-        fieldId={id}
-        className="absolute top-full left-0.25 translate-y-[7px]"
-        selectedColor={selectedColor}
-      />
+      {field.active && <ResizeHandle onMouseDown={handleResizeMouseDown} />}
+      {field.active && (
+        <ColorsPalette
+          fieldId={field.id}
+          className="absolute top-full left-0.25 translate-y-[7px]"
+          selectedColor={field.selectedColor}
+        />
+      )}
     </div>
   );
 };

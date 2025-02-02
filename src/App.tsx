@@ -1,9 +1,11 @@
 import { Canvas } from "./components/canvas/Canvas";
 import { Editor } from "./components/editor/Editor";
-import { useRef } from "react";
-import { onExportToPngHandler } from "./functions/exportToPng";
+import { useContext, useRef } from "react";
+import { onExportToPngHandler } from "./functions/export-to-png";
+import { AppContext } from "./context/AppContext";
 
 export default function App() {
+  const { changeActive } = useContext(AppContext);
   const exportRef = useRef<HTMLDivElement>(null);
 
   return (
@@ -14,6 +16,7 @@ export default function App() {
       <Canvas ref={exportRef} />
       <Editor
         onExportToPng={async () => {
+          changeActive();
           await onExportToPngHandler(exportRef.current);
         }}
       />

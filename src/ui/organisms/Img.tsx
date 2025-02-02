@@ -6,13 +6,12 @@ import { useMoveResizer } from "../../hooks/use-move-resizer";
 import { AppContext, FieldType } from "../../context/AppContext";
 
 export type ImgProps = {
-  id: FieldType["id"];
+  field: Extract<FieldType, { type: "image" }>;
   parentRef: React.RefObject<HTMLElement>;
-  imgSource: string;
 };
 
-export const Img: FC<ImgProps> = ({ id, parentRef, imgSource }) => {
-  const { removeField } = useContext(AppContext);
+export const Img: FC<ImgProps> = ({ parentRef, field }) => {
+  const { removeField, changeActive } = useContext(AppContext);
   const { position, dimensions, handleMoveMouseDown, handleResizeMouseDown } =
     useMoveResizer({
       initialPosition: { x: 280, y: 366 },
@@ -23,24 +22,33 @@ export const Img: FC<ImgProps> = ({ id, parentRef, imgSource }) => {
 
   return (
     <div
-      className={`absolute border-2 border-[var(--primary)] flex justify-center items-center`}
+      className={`absolute border-2 border-[var(--primary)] flex justify-center items-center box-border`}
+      onClick={(e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        changeActive(field.id);
+      }}
       style={{
         left: position.x,
         top: position.y,
         width: dimensions.width,
         height: dimensions.height,
+        ...(!field.active && { border: "none" }),
+        ...(field.active && { zIndex: 10 }),
       }}
     >
-      <MoveHandle onMouseDown={handleMoveMouseDown} />
-      <DeleteHandle
-        onClick={() => {
-          removeField(id);
-        }}
-      />
+      {field.active && <MoveHandle onMouseDown={handleMoveMouseDown} />}
+      {field.active && (
+        <DeleteHandle
+          onClick={() => {
+            removeField(field.id);
+          }}
+        />
+      )}
 
-      <img src={imgSource} className="object-cover w-full h-full" />
+      <img src={field.imgSource} className="object-cover w-full h-full" />
 
-      <ResizeHandle onMouseDown={handleResizeMouseDown} />
+      {field.active && <ResizeHandle onMouseDown={handleResizeMouseDown} />}
     </div>
   );
 };
