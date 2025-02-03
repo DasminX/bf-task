@@ -1,21 +1,25 @@
-import { MouseEventHandler, RefObject, useCallback, useMemo, useRef, useState } from "react";
+import { MouseEventHandler, RefObject, useCallback, useEffect, useMemo, useRef, useState } from "react";
+
+type MousePosition = {
+  mouseX: number;
+  mouseY: number;
+};
+
+type ElementPosition = {
+  x: number;
+  y: number;
+};
+
+type ElementSize = {
+  width: number;
+  height: number;
+};
 
 export type UseMoveHookProps = {
   parentRef: RefObject<HTMLElement>;
-  initialPosition: {
-    x: number;
-    y: number;
-  };
-  initialSize: {
-    width: number;
-    height: number;
-  };
-  minSize: { x: number; y: number } | number;
-};
-
-type MousePositionCoords = {
-  mouseX: number;
-  mouseY: number;
+  initialPosition: ElementPosition;
+  initialSize: ElementSize;
+  minSize: ElementSize | number;
 };
 
 export const useMoveResizer = (props: UseMoveHookProps) => {
@@ -31,13 +35,13 @@ export const useMoveResizer = (props: UseMoveHookProps) => {
   const isResizing = useRef<boolean>(false);
   const isMoving = useRef<boolean>(false);
 
-  const resizeStart = useRef<MousePositionCoords & UseMoveHookProps["initialSize"]>({
+  const resizeStart = useRef<MousePosition & ElementSize>({
     mouseX: 0,
     mouseY: 0,
     width: 0,
     height: 0,
   });
-  const moveStart = useRef<MousePositionCoords & UseMoveHookProps["initialPosition"]>({
+  const moveStart = useRef<MousePosition & ElementPosition>({
     mouseX: 0,
     mouseY: 0,
     x: 0,
@@ -58,8 +62,8 @@ export const useMoveResizer = (props: UseMoveHookProps) => {
       let newWidth = resizeStart.current.width + deltaX;
       let newHeight = resizeStart.current.height + deltaY;
 
-      const minSizeX = typeof props.minSize === "object" ? props.minSize.x : props.minSize;
-      const minSizeY = typeof props.minSize === "object" ? props.minSize.y : props.minSize;
+      const minSizeX = typeof props.minSize === "object" ? props.minSize.width : props.minSize;
+      const minSizeY = typeof props.minSize === "object" ? props.minSize.height : props.minSize;
       newWidth = Math.max(minSizeX, newWidth);
       newHeight = Math.max(minSizeY, newHeight);
 
@@ -144,8 +148,31 @@ export const useMoveResizer = (props: UseMoveHookProps) => {
       document.addEventListener("mousemove", handleMoveMouseMove);
       document.addEventListener("mouseup", handleMoveMouseUp);
     },
-    [props, position.x, position.y, handleMoveMouseMove, handleMoveMouseUp],
+    [props, position, handleMoveMouseMove, handleMoveMouseUp],
   );
+
+  // Update on resize
+  useEffect(() => {
+    const parentEl = props.parentRef.current;
+    if (!parentEl) return;
+
+    const observer = new ResizeObserver((entries) => {
+      if (entries.length === 0) return;
+      const { width: parentWidth, height: parentHeight } = entries[0].contentRect;
+
+      setPosition((prevPosition) => {
+        const maxX = Math.max(0, parentWidth - dimensions.width);
+        const maxY = Math.max(0, parentHeight - dimensions.height);
+        return {
+          x: Math.min(prevPosition.x, maxX),
+          y: Math.min(prevPosition.y, maxY),
+        };
+      });
+    });
+
+    observer.observe(parentEl);
+    return () => observer.disconnect();
+  }, [props.parentRef, dimensions.width, dimensions.height]);
 
   return useMemo(
     () => ({
