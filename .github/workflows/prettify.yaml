@@ -1,0 +1,48 @@
+name: Run Prettify on Push
+
+on:
+  push:
+    branches:
+      - master
+jobs:
+  prettify:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '16'
+
+      - name: Install dependencies
+        run: npm ci
+
+      # Run prettify
+      - name: Run Prettify
+        run: npm run prettify
+
+      # Commit and push any changes made by prettify
+      - name: Commit changes if any
+        run: |
+          # Configure Git user info
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          
+          # Retrieve the last commit message
+          last_commit_message=$(git log -1 --pretty=%B)
+          
+          # Check if any files have changed after running prettify
+          if [[ -n "$(git status --porcelain)" ]]; then
+            echo "Changes detected, committing..."
+            git add .
+            # Commit message now uses the last commit message
+            git commit -m "[prettify-action] $last_commit_message"
+            git push
+          else
+            echo "No formatting changes needed."
+          fi
