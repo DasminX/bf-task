@@ -17,34 +17,34 @@ export const exportToPng = async (elementToExport: HTMLElement | null) => {
 
     context.drawImage(capturedCanvas, 0, 0, capturedCanvas.width, capturedCanvas.height, 0, 0, finalWidth, finalHeight);
 
-    const blob: Blob = await new Promise((resolve, reject) => {
-      finalCanvas.toBlob((blob) => {
-        if (blob) {
-          resolve(blob);
-        } else {
-          reject(new Error("Canvas is empty"));
-        }
-      }, "image/png");
-    });
-
     // Check if the File System Access API is available
     if ("showSaveFilePicker" in window && typeof window.showSaveFilePicker === "function") {
-      const options = {
-        startIn: "downloads",
-        suggestedName: "Wojciech_Szpila_zadanie_rekrutacyjne_ByteFine",
-        types: [
-          {
-            description: "PNG Image",
-            accept: { "image/png": [".png"] },
-          },
-        ],
-      };
+      const blob: Blob = await new Promise((resolve, reject) => {
+        finalCanvas.toBlob((blob) => {
+          if (blob) {
+            resolve(blob);
+          } else {
+            reject(new Error("Canvas is empty"));
+          }
+        }, "image/png");
+      });
 
       try {
-        const handle = await window.showSaveFilePicker(options);
+        const handle = await window.showSaveFilePicker({
+          startIn: "downloads",
+          suggestedName: "Wojciech_Szpila_zadanie_rekrutacyjne_ByteFine",
+          types: [
+            {
+              description: "PNG Image",
+              accept: { "image/png": [".png"] },
+            },
+          ],
+        });
+
         const writable = await handle.createWritable({
           keepExistingData: false,
         });
+
         await writable.write(blob);
         await writable.close();
       } catch (saveError) {

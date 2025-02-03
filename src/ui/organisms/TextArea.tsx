@@ -48,7 +48,7 @@ export const TextArea: FC<TextAreaProps> = memo(({ field, parentRef, placeholder
 
   return (
     <div
-      className="field absolute w-87.5 h-30 py-3 px-6 border-2 border-[var(--primary)] flex justify-center items-center box-border"
+      className="field absolute w-87.5 h-30 py-3 px-6 border-2 border-[var(--primary)] flex justify-center items-center box-border text-wrap break-words"
       onClick={onTextAreaClickHandler}
       data-id={field.id}
       data-active={field.active}
