@@ -1,4 +1,4 @@
-import { ChangeEventHandler, FC, memo, MouseEventHandler, useCallback, useContext, useState } from "react";
+import { ChangeEventHandler, FC, memo, MouseEventHandler, RefObject, useCallback, useContext, useState } from "react";
 import { ColorsPalette } from "../molecules/ColorsPalette";
 import { MoveHandle } from "../atoms/MoveHandle";
 import { DeleteHandle } from "../atoms/DeleteHandle";
@@ -9,7 +9,7 @@ import { TextFieldType } from "../../utils/types";
 
 export type TextAreaProps = {
   field: TextFieldType;
-  parentRef: React.RefObject<HTMLElement>;
+  parentRef: RefObject<HTMLElement>;
   placeholder: string;
 };
 
@@ -17,9 +17,13 @@ export const TextArea: FC<TextAreaProps> = memo(({ field, parentRef, placeholder
   const { removeField, changeActiveField } = useContext(AppContext);
 
   const { position, dimensions, handleMoveMouseDown, handleResizeMouseDown } = useMoveResizer({
-    initialPosition: { x: 229, y: 446 },
+    // For different screen sizes it takes proportional top/left as in Figma design
+    initialPosition: {
+      x: (parentRef.current?.offsetWidth || 759) * 0.3017127799736495,
+      y: (parentRef.current?.offsetHeight || 948) * 0.470464135021097,
+    },
     initialSize: { width: 350, height: 120 },
-    minSize: { x: 100, y: 75 },
+    minSize: { width: 100, height: 75 },
     parentRef,
   });
 
@@ -44,8 +48,10 @@ export const TextArea: FC<TextAreaProps> = memo(({ field, parentRef, placeholder
 
   return (
     <div
-      className="absolute w-87.5 h-30 py-3 px-6 border-2 border-[var(--primary)] flex justify-center items-center box-border"
+      className="field absolute w-87.5 h-30 py-3 px-6 border-2 border-[var(--primary)] flex justify-center items-center box-border"
       onClick={onTextAreaClickHandler}
+      data-id={field.id}
+      data-active={field.active}
       style={{
         width: dimensions.width,
         height: dimensions.height,
@@ -54,8 +60,6 @@ export const TextArea: FC<TextAreaProps> = memo(({ field, parentRef, placeholder
         ...(!field.active && { border: "none" }),
         ...(field.active && { zIndex: 10 }),
       }}>
-      {field.active && <MoveHandle onMouseDown={handleMoveMouseDown} />}
-      {field.active && <DeleteHandle onClick={onDeleteHandler} />}
       <textarea
         spellCheck={false}
         className="w-full h-full text-display text-center resize-none outline-none overflow-hidden placeholder:text-[var(--black)] placeholder:opacity-25"
@@ -65,13 +69,18 @@ export const TextArea: FC<TextAreaProps> = memo(({ field, parentRef, placeholder
         }}
         onChange={onTextAreaValueChangeHandler}
         value={textAreaValue}></textarea>
-      {field.active && <ResizeHandle onMouseDown={handleResizeMouseDown} />}
+
       {field.active && (
-        <ColorsPalette
-          fieldId={field.id}
-          className="absolute top-full left-0.25 translate-y-1.75"
-          selectedColor={field.selectedColor}
-        />
+        <>
+          <MoveHandle onMouseDown={handleMoveMouseDown} />
+          <DeleteHandle onClick={onDeleteHandler} />
+          <ResizeHandle onMouseDown={handleResizeMouseDown} />
+          <ColorsPalette
+            fieldId={field.id}
+            className="absolute top-full left-0.25 translate-y-1.75 flex justify-stretch gap-1"
+            selectedColor={field.selectedColor}
+          />
+        </>
       )}
     </div>
   );

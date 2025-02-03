@@ -1,9 +1,13 @@
-import { FC, memo, useContext } from "react";
+import { FC, memo, MouseEventHandler, useCallback, useContext } from "react";
 import { AppContext } from "../../../context/AppContextProvider";
 import { Icon } from "../../atoms/Icon";
 
 export const EditorUpperField: FC = memo(() => {
   const { setIsModal } = useContext(AppContext);
+
+  const onClickHandler = useCallback<MouseEventHandler<HTMLButtonElement>>(() => {
+    setIsModal(true);
+  }, [setIsModal]);
 
   return (
     <div className="h-16 w-full flex justify-between items-center">
@@ -15,9 +19,7 @@ export const EditorUpperField: FC = memo(() => {
       {/* Reset button */}
       <button
         className="w-22.5 h-8 flex justify-between items-center cursor-pointer border-b-1 border-[var(--red)]"
-        onClick={() => {
-          setIsModal(true);
-        }}>
+        onClick={onClickHandler}>
         <p className="w-12.5 text-body-medium text-[var(--red)]">Reset</p>
         <Icon src="reset.svg" className="w-8 h-8" />
       </button>

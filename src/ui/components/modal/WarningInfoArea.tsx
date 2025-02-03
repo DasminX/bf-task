@@ -1,6 +1,7 @@
 import { FC } from "react";
 import { Icon } from "../../atoms/Icon";
 
+// Could memo but I think it would be unnecessary
 export const WarningInfoArea: FC = () => {
   return (
     <div className="flex flex-col items-center">

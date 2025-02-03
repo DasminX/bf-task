@@ -1,4 +1,4 @@
-import { FC, ForwardedRef, RefObject, useContext } from "react";
+import { FC, ForwardedRef, memo, RefObject, useContext, useMemo } from "react";
 import { AppContext } from "../../../context/AppContextProvider";
 import { Img } from "../../organisms/Img";
 import { TextArea } from "../../organisms/TextArea";
@@ -6,12 +6,14 @@ import { TextArea } from "../../organisms/TextArea";
 export type CanvasFieldsProps = {
   parentRef: ForwardedRef<HTMLDivElement>;
 };
-export const CanvasFields: FC<CanvasFieldsProps> = ({ parentRef }) => {
+export const CanvasFields: FC<CanvasFieldsProps> = memo(({ parentRef }) => {
   const { fields } = useContext(AppContext);
+
+  const memoizedFields = useMemo(() => fields, [fields]);
 
   return (
     <>
-      {fields.map((field) => {
+      {memoizedFields.map((field) => {
         switch (field.type) {
           case "image":
             return <Img key={field.id} field={field} parentRef={parentRef as RefObject<HTMLDivElement>} />;
@@ -30,4 +32,4 @@ export const CanvasFields: FC<CanvasFieldsProps> = ({ parentRef }) => {
       })}
     </>
   );
-};
+});

@@ -10,7 +10,8 @@ export type ImageFieldType = {
 };
 
 export type TextFieldType = {
-  id: string;active: boolean;
+  id: string;
+  active: boolean;
   type: "text";
   text: string;
   selectedColor: Color;
