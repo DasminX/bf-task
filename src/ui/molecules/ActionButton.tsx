@@ -1,6 +1,6 @@
 import { FC, memo, useContext } from "react";
 import { Icon } from "../atoms/Icon";
-import { AppContext } from "../../context/AppContext";
+import { AppContext } from "../../context/AppContextProvider";
 
 export type ActionButtonProps = {
   type: "image" | "text" | "background";
@@ -9,11 +9,12 @@ export type ActionButtonProps = {
 };
 export const ActionButton: FC<ActionButtonProps> = memo(
   ({ type, src, actionText }) => {
+    // TODO wyciagnac do gory
     const { addField, setBackground, isCreating, setIsCreating } =
       useContext(AppContext);
 
     return (
-      <button className="relative flex flex-col justify-between items-center bg-[var(--white97)] rounded-[10px] p-3 w-1/2 max-w-91.25 h-64 duration-[250ms] ease-in-out border-none cursor-pointer hover:bg-[var(--black25)] focus:bg-[var(--white97)] focus:outline-4 focus:outline-[var(--primary50)] disabled:opacity-25 disabled:cursor-not-allowed">
+      <button className="relative flex flex-col justify-between items-center bg-[var(--white97)] rounded-[10px] p-3 w-91.25 h-64 duration-[250ms] ease-in-out border-none cursor-pointer hover:bg-[var(--black25)] focus:bg-[var(--white97)] focus:outline-4 focus:outline-[var(--primary50)] disabled:opacity-25 disabled:cursor-not-allowed">
         <input
           type={type === "text" ? "button" : "file"}
           accept="image/*"

@@ -3,7 +3,7 @@ import { ResizeHandle } from "../atoms/ResizeHandle";
 import { MoveHandle } from "../atoms/MoveHandle";
 import { DeleteHandle } from "../atoms/DeleteHandle";
 import { useMoveResizer } from "../../hooks/use-move-resizer";
-import { AppContext, FieldType } from "../../context/AppContext";
+import { AppContext, FieldType } from "../../context/AppContextProvider";
 
 export type ImgProps = {
   field: Extract<FieldType, { type: "image" }>;
@@ -11,6 +11,7 @@ export type ImgProps = {
 };
 
 export const Img: FC<ImgProps> = memo(({ parentRef, field }) => {
+  // TODO Wyciagnac do gory
   const { removeField, changeActive } = useContext(AppContext);
   const { position, dimensions, handleMoveMouseDown, handleResizeMouseDown } =
     useMoveResizer({

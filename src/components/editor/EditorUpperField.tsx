@@ -1,6 +1,6 @@
 import { useContext } from "react";
-import { AppContext } from "../../context/AppContext";
 import { Icon } from "../../ui/atoms/Icon";
+import { AppContext } from "../../context/AppContextProvider";
 
 export const EditorUpperField = () => {
   const { setIsModal } = useContext(AppContext);

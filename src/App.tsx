@@ -2,8 +2,8 @@ import { Canvas } from "./components/canvas/Canvas";
 import { Editor } from "./components/editor/Editor";
 import { useContext, useRef } from "react";
 import { onExportToPngHandler } from "./functions/export-to-png";
-import { AppContext } from "./context/AppContext";
 import { WarningModal } from "./components/modal/WarningModal";
+import { AppContext } from "./context/AppContextProvider";
 
 export default function App() {
   const { changeActive, isModal } = useContext(AppContext);

@@ -1,9 +1,9 @@
 import { FC, memo, useContext } from "react";
 import { TEXT_COLORS } from "../../utils/constants";
 import { TextColor } from "../atoms/TextColor";
-import { AppContext, FieldType } from "../../context/AppContext";
 import { cn } from "../../functions/cn";
 import { Color } from "../../utils/types";
+import { AppContext, FieldType } from "../../context/AppContextProvider";
 
 export type ColorsPaletteProps = {
   fieldId: FieldType["id"];
@@ -12,6 +12,7 @@ export type ColorsPaletteProps = {
 };
 export const ColorsPalette: FC<ColorsPaletteProps> = memo(
   ({ fieldId, selectedColor, className = "" }) => {
+    // TODO wyciagnac do gory
     const { updateSelectedColor } = useContext(AppContext);
 
     return (

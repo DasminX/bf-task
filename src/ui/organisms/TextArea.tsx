@@ -4,7 +4,7 @@ import { MoveHandle } from "../atoms/MoveHandle";
 import { DeleteHandle } from "../atoms/DeleteHandle";
 import { ResizeHandle } from "../atoms/ResizeHandle";
 import { useMoveResizer } from "../../hooks/use-move-resizer";
-import { AppContext, FieldType } from "../../context/AppContext";
+import { AppContext, FieldType } from "../../context/AppContextProvider";
 
 export type TextAreaProps = {
   field: Extract<FieldType, { type: "text" }>;
@@ -14,6 +14,7 @@ export type TextAreaProps = {
 
 export const TextArea: FC<TextAreaProps> = memo(
   ({ field, parentRef, placeholder }) => {
+    // TODO WYciagnac do gory
     const { removeField, changeActive } = useContext(AppContext);
 
     const { position, dimensions, handleMoveMouseDown, handleResizeMouseDown } =

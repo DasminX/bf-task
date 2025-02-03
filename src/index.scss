@@ -29,22 +29,50 @@
 @layer utilities {
   .text-button {
     font-family: "Poppins", sans-serif;
-    @apply font-semibold text-[15px] text-white leading-[22.5px] tracking-[0.5px];
+    @apply font-semibold text-[0.9375rem] text-white leading-[1.40625rem] tracking-[0.03125rem];
   }
 
   .text-display {
     font-family: "Poppins", sans-serif;
-    @apply font-bold text-[32px] leading-12;
+    @apply font-bold text-[2rem] leading-12;
   }
 
   .text-body-bold {
     font-family: "Poppins", sans-serif;
-    @apply font-bold text-lg leading-[27px];
+    @apply font-bold text-lg leading-[1.6875rem];
   }
 
   .text-body-medium {
     font-family: "Poppins", sans-serif;
-    @apply font-medium text-lg leading-[27px];
+    @apply font-medium text-lg leading-[1.6875rem];
+  }
+}
+
+html {
+  font-size: 16px;
+}
+
+@media screen and ((max-height: 920px) or (max-width: 1600px)) {
+  html {
+    font-size: 14px;
+  }
+}
+
+@media screen and ((max-width: 1366px)) {
+  html {
+    font-size: 13px;
+  }
+}
+
+@media screen and ((max-height: 850px) or (max-width: 1280px)) {
+  html {
+    font-size: 12px;
+  }
+}
+
+@media screen and ((max-height: 732px) or (max-width: 1180px)) {
+  html {
+    font-size: 10.5px;
   }
 }
 
