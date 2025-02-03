@@ -9,7 +9,8 @@
     "lint": "eslint .",
     "preview": "vite preview",
     "prettify": "npx prettier ./src --write",
-    "fixpaths": "sed -i 's#/assets/#./assets/#g' ./dist/index.html"
+    "fixpaths": "sed -i 's#/assets/#./assets/#g' ./dist/index.html",
+    "fixpaths-win": "powershell -Command \"(Get-Content ./dist/index.html) -replace '/assets/', './assets/' | Set-Content ./dist/index.html\""
   },
   "dependencies": {
     "@tailwindcss/vite": "^4.0.1",
