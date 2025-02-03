@@ -13,13 +13,12 @@ export type ImgProps = {
 export const Img: FC<ImgProps> = memo(({ parentRef, field }) => {
   // TODO Wyciagnac do gory
   const { removeField, changeActive } = useContext(AppContext);
-  const { position, dimensions, handleMoveMouseDown, handleResizeMouseDown } =
-    useMoveResizer({
-      initialPosition: { x: 280, y: 366 },
-      initialSize: { height: 200, width: 200 },
-      minSize: 100,
-      parentRef,
-    });
+  const { position, dimensions, handleMoveMouseDown, handleResizeMouseDown } = useMoveResizer({
+    initialPosition: { x: 280, y: 366 },
+    initialSize: { height: 200, width: 200 },
+    minSize: 100,
+    parentRef,
+  });
 
   return (
     <div
@@ -36,8 +35,7 @@ export const Img: FC<ImgProps> = memo(({ parentRef, field }) => {
         height: dimensions.height,
         ...(!field.active && { border: "none" }),
         ...(field.active && { zIndex: 10 }),
-      }}
-    >
+      }}>
       {field.active && <MoveHandle onMouseDown={handleMoveMouseDown} />}
       {field.active && (
         <DeleteHandle

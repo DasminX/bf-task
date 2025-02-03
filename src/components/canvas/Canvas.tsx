@@ -1,20 +1,11 @@
-import {
-  forwardRef,
-  MouseEvent,
-  ReactNode,
-  RefObject,
-  useCallback,
-  useContext,
-  useMemo,
-} from "react";
+import { forwardRef, MouseEvent, ReactNode, RefObject, useCallback, useContext, useMemo } from "react";
 import { Img } from "../../ui/organisms/Img";
 import { TextArea } from "../../ui/organisms/TextArea";
 import { cn } from "../../functions/cn";
 import { AppContext } from "../../context/AppContextProvider";
 
 export const Canvas = forwardRef<HTMLDivElement>((_, ref) => {
-  const { isCreating, fields, background, changeActive } =
-    useContext(AppContext);
+  const { isCreating, fields, background, changeActive } = useContext(AppContext);
 
   const handleClick = useCallback(
     (e: MouseEvent<HTMLDivElement>) => {
@@ -22,7 +13,7 @@ export const Canvas = forwardRef<HTMLDivElement>((_, ref) => {
       e.stopPropagation();
       changeActive();
     },
-    [changeActive]
+    [changeActive],
   );
 
   const memoizedOutlet: ReactNode = useMemo(() => {
@@ -32,13 +23,7 @@ export const Canvas = forwardRef<HTMLDivElement>((_, ref) => {
           {fields.map((field) => {
             switch (field.type) {
               case "image":
-                return (
-                  <Img
-                    key={field.id}
-                    field={field}
-                    parentRef={ref as RefObject<HTMLElement>}
-                  />
-                );
+                return <Img key={field.id} field={field} parentRef={ref as RefObject<HTMLElement>} />;
               case "text":
                 return (
                   <TextArea
@@ -63,13 +48,12 @@ export const Canvas = forwardRef<HTMLDivElement>((_, ref) => {
       ref={ref}
       className={cn(
         "relative w-189.75 h-237 bg-[var(--black50)] flex justify-center items-center",
-        background && "bg-cover bg-center bg-no-repeat"
+        background && "bg-cover bg-center bg-no-repeat",
       )}
       onClick={handleClick}
       style={{
         ...(background && { backgroundImage: `url(${background})` }),
-      }}
-    >
+      }}>
       {memoizedOutlet}
     </div>
   );

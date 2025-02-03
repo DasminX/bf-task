@@ -2,18 +2,17 @@ import { FC, ReactNode, useState } from "react";
 import { createContext } from "react";
 import { Color } from "../utils/types";
 
-export type FieldType =
-  | { id: string; active: boolean } & (
-      | {
-          type: "text";
-          text: string;
-          selectedColor: Color;
-        }
-      | {
-          type: "image";
-          imgSource: string;
-        }
-    );
+export type FieldType = { id: string; active: boolean } & (
+  | {
+      type: "text";
+      text: string;
+      selectedColor: Color;
+    }
+  | {
+      type: "image";
+      imgSource: string;
+    }
+);
 
 export type AppContextType = {
   isCreating: boolean;
@@ -22,10 +21,7 @@ export type AppContextType = {
   fields: FieldType[];
   addField: (field: FieldType) => void;
   changeActive: (fieldId?: FieldType["id"]) => void;
-  updateSelectedColor: (
-    fieldId: FieldType["id"],
-    color: Extract<FieldType, { type: "text" }>["selectedColor"]
-  ) => void;
+  updateSelectedColor: (fieldId: FieldType["id"], color: Extract<FieldType, { type: "text" }>["selectedColor"]) => void;
   removeField: (fieldId: FieldType["id"]) => void;
   removeFields: () => void;
 
@@ -44,10 +40,7 @@ export const AppContext = createContext<AppContextType>({
   fields: [],
   addField: (_field: FieldType) => {},
   changeActive: (_fieldId?: FieldType["id"]) => {},
-  updateSelectedColor: (
-    _fieldId: FieldType["id"],
-    _color: Extract<FieldType, { type: "text" }>["selectedColor"]
-  ) => {},
+  updateSelectedColor: (_fieldId: FieldType["id"], _color: Extract<FieldType, { type: "text" }>["selectedColor"]) => {},
   removeField: (_fieldId: FieldType["id"]) => {},
   removeFields: () => {},
 
@@ -62,11 +55,8 @@ export const AppContext = createContext<AppContextType>({
 export type AppContextProviderProps = {
   children: ReactNode;
 };
-export const AppContextProvider: FC<AppContextProviderProps> = ({
-  children,
-}) => {
-  const [isCreating, setIsCreating] =
-    useState<AppContextType["isCreating"]>(false);
+export const AppContextProvider: FC<AppContextProviderProps> = ({ children }) => {
+  const [isCreating, setIsCreating] = useState<AppContextType["isCreating"]>(false);
   const [fields, setFields] = useState<AppContextType["fields"]>([]);
   const [bg, setBg] = useState<AppContextType["background"]>(null);
   const [isModal, setIsModal] = useState<AppContextType["isModal"]>(false);
@@ -78,15 +68,12 @@ export const AppContextProvider: FC<AppContextProviderProps> = ({
   };
 
   const addField: AppContextType["addField"] = (field: FieldType) => {
-    setFields((prev) => [
-      ...prev.map((el) => ({ ...el, active: false })),
-      field,
-    ]);
+    setFields((prev) => [...prev.map((el) => ({ ...el, active: false })), field]);
   };
 
   const updateSelectedColor = (
     fieldId: FieldType["id"],
-    color: Extract<FieldType, { type: "text" }>["selectedColor"]
+    color: Extract<FieldType, { type: "text" }>["selectedColor"],
   ) => {
     setFields((prevFields) => {
       return prevFields.map((pf) => {
@@ -107,7 +94,7 @@ export const AppContextProvider: FC<AppContextProviderProps> = ({
         } else {
           return { ...el, active: false };
         }
-      })
+      }),
     );
   };
 
@@ -143,8 +130,7 @@ export const AppContextProvider: FC<AppContextProviderProps> = ({
         resetBackground,
         isModal,
         setIsModal: setIsModalHandler,
-      }}
-    >
+      }}>
       {children}
     </AppContext.Provider>
   );

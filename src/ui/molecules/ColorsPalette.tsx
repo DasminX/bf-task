@@ -10,24 +10,22 @@ export type ColorsPaletteProps = {
   selectedColor: Color;
   className?: string;
 };
-export const ColorsPalette: FC<ColorsPaletteProps> = memo(
-  ({ fieldId, selectedColor, className = "" }) => {
-    // TODO wyciagnac do gory
-    const { updateSelectedColor } = useContext(AppContext);
+export const ColorsPalette: FC<ColorsPaletteProps> = memo(({ fieldId, selectedColor, className = "" }) => {
+  // TODO wyciagnac do gory
+  const { updateSelectedColor } = useContext(AppContext);
 
-    return (
-      <div className={cn(className, "flex justify-stretch gap-1")}>
-        {TEXT_COLORS.map((color) => (
-          <TextColor
-            key={color}
-            color={color}
-            selected={color === selectedColor}
-            onClick={() => {
-              updateSelectedColor(fieldId, color);
-            }}
-          />
-        ))}
-      </div>
-    );
-  }
-);
+  return (
+    <div className={cn(className, "flex justify-stretch gap-1")}>
+      {TEXT_COLORS.map((color) => (
+        <TextColor
+          key={color}
+          color={color}
+          selected={color === selectedColor}
+          onClick={() => {
+            updateSelectedColor(fieldId, color);
+          }}
+        />
+      ))}
+    </div>
+  );
+});

@@ -1,11 +1,4 @@
-import {
-  MouseEventHandler,
-  RefObject,
-  useCallback,
-  useMemo,
-  useRef,
-  useState,
-} from "react";
+import { MouseEventHandler, RefObject, useCallback, useMemo, useRef, useState } from "react";
 
 export type UseMoveHookProps = {
   parentRef: RefObject<HTMLElement>;
@@ -26,28 +19,30 @@ type MousePositionCoords = {
 };
 
 export const useMoveResizer = (props: UseMoveHookProps) => {
-  const [dimensions, setDimensions] = useState<UseMoveHookProps["initialSize"]>(
-    {
-      width: props.initialSize.width,
-      height: props.initialSize.height,
-    }
-  );
-  const [position, setPosition] = useState<UseMoveHookProps["initialPosition"]>(
-    {
-      x: props.initialPosition.x,
-      y: props.initialPosition.y,
-    }
-  );
+  const [dimensions, setDimensions] = useState<UseMoveHookProps["initialSize"]>({
+    width: props.initialSize.width,
+    height: props.initialSize.height,
+  });
+  const [position, setPosition] = useState<UseMoveHookProps["initialPosition"]>({
+    x: props.initialPosition.x,
+    y: props.initialPosition.y,
+  });
 
   const isResizing = useRef<boolean>(false);
   const isMoving = useRef<boolean>(false);
 
-  const resizeStart = useRef<
-    MousePositionCoords & UseMoveHookProps["initialSize"]
-  >({ mouseX: 0, mouseY: 0, width: 0, height: 0 });
-  const moveStart = useRef<
-    MousePositionCoords & UseMoveHookProps["initialPosition"]
-  >({ mouseX: 0, mouseY: 0, x: 0, y: 0 });
+  const resizeStart = useRef<MousePositionCoords & UseMoveHookProps["initialSize"]>({
+    mouseX: 0,
+    mouseY: 0,
+    width: 0,
+    height: 0,
+  });
+  const moveStart = useRef<MousePositionCoords & UseMoveHookProps["initialPosition"]>({
+    mouseX: 0,
+    mouseY: 0,
+    x: 0,
+    y: 0,
+  });
 
   const handleResizeMouseMove = useCallback(
     (e: MouseEvent) => {
@@ -66,18 +61,12 @@ export const useMoveResizer = (props: UseMoveHookProps) => {
       newWidth = Math.max(props.minSize, newWidth);
       newHeight = Math.max(props.minSize, newHeight);
 
-      newWidth = Math.min(
-        newWidth,
-        props.parentRef.current.clientWidth - position.x
-      );
-      newHeight = Math.min(
-        newHeight,
-        props.parentRef.current.clientHeight - position.y
-      );
+      newWidth = Math.min(newWidth, props.parentRef.current.clientWidth - position.x);
+      newHeight = Math.min(newHeight, props.parentRef.current.clientHeight - position.y);
 
       setDimensions({ width: newWidth, height: newHeight });
     },
-    [props, position]
+    [props, position],
   );
 
   const handleResizeMouseUp = useCallback(() => {
@@ -104,13 +93,7 @@ export const useMoveResizer = (props: UseMoveHookProps) => {
       document.addEventListener("mousemove", handleResizeMouseMove);
       document.addEventListener("mouseup", handleResizeMouseUp);
     },
-    [
-      props,
-      dimensions.width,
-      dimensions.height,
-      handleResizeMouseMove,
-      handleResizeMouseUp,
-    ]
+    [props, dimensions.width, dimensions.height, handleResizeMouseMove, handleResizeMouseUp],
   );
 
   const handleMoveMouseMove = useCallback(
@@ -127,18 +110,12 @@ export const useMoveResizer = (props: UseMoveHookProps) => {
       let newX = moveStart.current.x + deltaX;
       let newY = moveStart.current.y + deltaY;
 
-      newX = Math.max(
-        0,
-        Math.min(newX, props.parentRef.current.clientWidth - dimensions.width)
-      );
-      newY = Math.max(
-        0,
-        Math.min(newY, props.parentRef.current.clientHeight - dimensions.height)
-      );
+      newX = Math.max(0, Math.min(newX, props.parentRef.current.clientWidth - dimensions.width));
+      newY = Math.max(0, Math.min(newY, props.parentRef.current.clientHeight - dimensions.height));
 
       setPosition({ x: newX, y: newY });
     },
-    [props, dimensions.width, dimensions.height]
+    [props, dimensions.width, dimensions.height],
   );
 
   const handleMoveMouseUp = useCallback(() => {
@@ -165,7 +142,7 @@ export const useMoveResizer = (props: UseMoveHookProps) => {
       document.addEventListener("mousemove", handleMoveMouseMove);
       document.addEventListener("mouseup", handleMoveMouseUp);
     },
-    [props, position.x, position.y, handleMoveMouseMove, handleMoveMouseUp]
+    [props, position.x, position.y, handleMoveMouseMove, handleMoveMouseUp],
   );
 
   return useMemo(
@@ -175,6 +152,6 @@ export const useMoveResizer = (props: UseMoveHookProps) => {
       handleMoveMouseDown,
       handleResizeMouseDown,
     }),
-    [position, dimensions, handleMoveMouseDown, handleResizeMouseDown]
+    [position, dimensions, handleMoveMouseDown, handleResizeMouseDown],
   );
 };

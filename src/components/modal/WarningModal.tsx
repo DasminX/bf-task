@@ -6,8 +6,7 @@ import { Button } from "../../ui/atoms/Button";
 import { AppContext } from "../../context/AppContextProvider";
 
 export const WarningModal: FC = () => {
-  const { setIsModal, removeFields, resetBackground, setIsCreating } =
-    useContext(AppContext);
+  const { setIsModal, removeFields, resetBackground, setIsCreating } = useContext(AppContext);
 
   const el = document.createElement("div");
 
@@ -31,8 +30,7 @@ export const WarningModal: FC = () => {
           className="absolute top-8 right-8 cursor-pointer select-none"
           onClick={() => {
             setIsModal(false);
-          }}
-        >
+          }}>
           <Icon src="close.svg" className="w-8 h-8" />
         </button>
         <WarningInfoArea />
@@ -41,8 +39,7 @@ export const WarningModal: FC = () => {
             className="text-body-medium cursor-pointer"
             onClick={() => {
               setIsModal(false);
-            }}
-          >
+            }}>
             Cancel
           </p>
           <Button
@@ -51,13 +48,12 @@ export const WarningModal: FC = () => {
               resetBackground();
               setIsCreating(false);
               setIsModal(false);
-            }}
-          >
+            }}>
             Reset
           </Button>
         </div>
       </div>
     </div>,
-    el
+    el,
   );
 };

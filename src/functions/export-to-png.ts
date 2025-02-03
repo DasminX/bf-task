@@ -1,8 +1,6 @@
 import html2canvas from "html2canvas";
 
-export const onExportToPngHandler = async (
-  elementToExport: HTMLElement | null
-) => {
+export const onExportToPngHandler = async (elementToExport: HTMLElement | null) => {
   if (elementToExport) {
     try {
       const capturedCanvas = await html2canvas(elementToExport);
@@ -26,7 +24,7 @@ export const onExportToPngHandler = async (
         0,
         0,
         finalWidth,
-        finalHeight
+        finalHeight,
       );
 
       const blob: Blob = await new Promise((resolve, reject) => {
@@ -40,10 +38,7 @@ export const onExportToPngHandler = async (
       });
 
       // Check if the File System Access API is available by asserting its type locally.
-      if (
-        "showSaveFilePicker" in window &&
-        typeof window.showSaveFilePicker === "function"
-      ) {
+      if ("showSaveFilePicker" in window && typeof window.showSaveFilePicker === "function") {
         const options = {
           startIn: "downloads",
           suggestedName: "Wojciech_Szpila_zadanie_rekrutacyjne_ByteFine",

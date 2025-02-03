@@ -6,5 +6,5 @@ import { AppContextProvider } from "./context/AppContextProvider.tsx";
 createRoot(document.getElementById("root")!).render(
   <AppContextProvider>
     <App />
-  </AppContextProvider>
+  </AppContextProvider>,
 );
