@@ -1,13 +1,13 @@
-import { useContext } from "react";
+import { FC, useContext } from "react";
 import { Icon } from "../../ui/atoms/Icon";
 import { AppContext } from "../../context/AppContextProvider";
 
-export const EditorUpperField = () => {
+export const EditorUpperField: FC = () => {
   const { setIsModal } = useContext(AppContext);
 
   return (
     <div className="h-16 w-full flex justify-between items-center">
-      {/* Logo and canvasEditor */}
+      {/* Logo and CanvasEditor */}
       <div className="h-full gap-3 flex justify-between items-center">
         <Icon src="logo.svg" className="w-16 h-16" />
         <p className="text-display text-[var(--black75)] w-55.75">CanvasEditor</p>

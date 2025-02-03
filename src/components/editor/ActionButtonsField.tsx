@@ -1,4 +1,4 @@
-import { useMemo } from "react";
+import { FC, useMemo } from "react";
 import { ActionButton, ActionButtonProps } from "../../ui/molecules/ActionButton";
 
 const ACTION_BUTTONS: ActionButtonProps[] = [
@@ -11,12 +11,11 @@ const ACTION_BUTTONS: ActionButtonProps[] = [
   },
 ];
 
-export const ActionButtonsField = () => {
-  // Memoize the rendered action buttons to avoid unnecessary recalculations
-  const actionButtonsNodes = useMemo(
+export const ActionButtonsField: FC = () => {
+  const memoizedActionButtons = useMemo(
     () => ACTION_BUTTONS.map((actionButton) => <ActionButton key={actionButton.actionText} {...actionButton} />),
-    [], // Empty array since ACTION_BUTTONS is static
+    [],
   );
 
-  return <div className="flex flex-wrap gap-x-7.25 gap-y-8 mb-16.25">{actionButtonsNodes}</div>;
+  return <div className="flex flex-wrap gap-x-7.25 gap-y-8 mb-16.25">{memoizedActionButtons}</div>;
 };

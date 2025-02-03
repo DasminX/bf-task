@@ -1,6 +1,7 @@
+import { FC } from "react";
 import { Icon } from "../../ui/atoms/Icon";
 
-export const WarningInfoArea = () => {
+export const WarningInfoArea: FC = () => {
   return (
     <div className="flex flex-col items-center">
       <Icon src="alert.svg" className="w-72.5 h-72.5" />
