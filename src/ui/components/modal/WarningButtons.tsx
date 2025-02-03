@@ -18,7 +18,7 @@ export const WarningButtons: FC = memo(() => {
 
   return (
     <div className="h-10 w-96.75 gap-8 flex items-center justify-center">
-      <p className="text-body-medium cursor-pointer" onClick={onCancelHandler}>
+      <p className="text-body-medium cursor-pointer text-[var(--black)]" onClick={onCancelHandler}>
         Cancel
       </p>
       <Button onClick={onResetHandler}>Reset</Button>

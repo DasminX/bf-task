@@ -53,7 +53,7 @@ export const ActionButton: FC<ActionButtonProps> = memo(({ type, src, actionText
   }, [type, isCreating, setIsCreating]);
 
   return (
-    <button className="relative flex flex-col justify-between items-center bg-[var(--white97)] rounded-[10px] p-3 w-91.25 h-64 duration-[250ms] ease-in-out border-none cursor-pointer hover:bg-[var(--black25)] focus:bg-[var(--white97)] focus:outline-4 focus:outline-[var(--primary50)] disabled:opacity-25 disabled:cursor-not-allowed">
+    <button className="relative flex flex-col justify-between items-center bg-[var(--white97)] rounded-[10px] p-3 w-91.25 h-64 transition-colors duration-[250ms] ease-in-out border-none cursor-pointer hover:bg-[var(--black25)] focus:bg-[var(--white97)] focus:outline-4 focus:outline-[var(--primary50)] disabled:opacity-25 disabled:cursor-not-allowed">
       <input
         ref={inputRef}
         type={type === "text" ? "button" : "file"}
