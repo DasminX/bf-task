@@ -1,4 +1,4 @@
-import { FC, ReactNode, useState } from "react";
+import { FC, ReactNode, useCallback, useState } from "react";
 import { createContext } from "react";
 import { FieldType, TextFieldType } from "../utils/types";
 
@@ -53,56 +53,68 @@ export const AppContextProvider: FC<AppContextProviderProps> = ({ children }) =>
   const [bg, setBg] = useState<AppContextType["background"]>(null);
   const [isModal, setIsModal] = useState<AppContextType["isModal"]>(false);
 
-  const setIsModalHandler = (bool: boolean) => setIsModal(bool);
+  const setIsModalHandler = useCallback((bool: boolean) => setIsModal(bool), [setIsModal]);
 
-  const setIsCreatingHandler = (bool: boolean) => setIsCreating(bool);
+  const setIsCreatingHandler = useCallback((bool: boolean) => setIsCreating(bool), [setIsCreating]);
 
-  const addField: AppContextType["addField"] = (field: FieldType) => {
-    setFields((prev) => [...prev.map((el) => ({ ...el, active: false })), field]);
-  };
+  const addField: AppContextType["addField"] = useCallback(
+    (field: FieldType) => {
+      setFields((prev) => [...prev.map((el) => ({ ...el, active: false })), field]);
+    },
+    [setFields],
+  );
 
-  const updateSelectedColor = (
-    fieldId: FieldType["id"],
-    color: Extract<FieldType, { type: "text" }>["selectedColor"],
-  ) => {
-    setFields((prevFields) => {
-      return prevFields.map((pf) => {
-        if (pf.id == fieldId && pf.type === "text") {
-          pf.selectedColor = color;
-        }
+  const updateSelectedColor = useCallback(
+    (fieldId: FieldType["id"], color: Extract<FieldType, { type: "text" }>["selectedColor"]) => {
+      setFields((prevFields) => {
+        return prevFields.map((pf) => {
+          if (pf.id == fieldId && pf.type === "text") {
+            pf.selectedColor = color;
+          }
 
-        return pf;
+          return pf;
+        });
       });
-    });
-  };
+    },
+    [setFields],
+  );
 
-  const changeActiveField = (fieldId?: FieldType["id"]) => {
-    setFields((prev) =>
-      prev.map((el) => {
-        if (el.id === fieldId) {
-          return { ...el, active: true };
-        } else {
-          return { ...el, active: false };
-        }
-      }),
-    );
-  };
+  const changeActiveField = useCallback(
+    (fieldId?: FieldType["id"]) => {
+      setFields((prev) =>
+        prev.map((el) => {
+          if (el.id === fieldId) {
+            return { ...el, active: true };
+          } else {
+            return { ...el, active: false };
+          }
+        }),
+      );
+    },
+    [setFields],
+  );
 
-  const removeFieldById: AppContextType["removeField"] = (fieldId) => {
-    setFields((prev) => prev.filter((item) => item.id != fieldId));
-  };
+  const removeFieldById: AppContextType["removeField"] = useCallback(
+    (fieldId) => {
+      setFields((prev) => prev.filter((item) => item.id != fieldId));
+    },
+    [setFields],
+  );
 
-  const removeAllFields: AppContextType["removeAllFields"] = () => {
+  const removeAllFields: AppContextType["removeAllFields"] = useCallback(() => {
     setFields([]);
-  };
+  }, [setFields]);
 
-  const setBackground: AppContextType["setBackground"] = (bgSrc) => {
-    setBg(bgSrc);
-  };
+  const setBackground: AppContextType["setBackground"] = useCallback(
+    (bgSrc) => {
+      setBg(bgSrc);
+    },
+    [setBg],
+  );
 
-  const resetBackground: AppContextType["resetBackground"] = () => {
+  const resetBackground: AppContextType["resetBackground"] = useCallback(() => {
     setBg(null);
-  };
+  }, [setBg]);
 
   return (
     <AppContext.Provider
