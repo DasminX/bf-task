@@ -1,6 +1,6 @@
 import html2canvas from "html2canvas";
 
-export const onExportToPngHandler = async (elementToExport: HTMLElement | null) => {
+export const exportToPng = async (elementToExport: HTMLElement | null) => {
   if (elementToExport) {
     try {
       const capturedCanvas = await html2canvas(elementToExport);
@@ -37,7 +37,7 @@ export const onExportToPngHandler = async (elementToExport: HTMLElement | null) 
         }, "image/png");
       });
 
-      // Check if the File System Access API is available by asserting its type locally.
+      // Check if the File System Access API is available
       if ("showSaveFilePicker" in window && typeof window.showSaveFilePicker === "function") {
         const options = {
           startIn: "downloads",

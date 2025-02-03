@@ -1,7 +1,7 @@
 import { FC, ForwardedRef, RefObject, useContext } from "react";
-import { AppContext } from "../../context/AppContextProvider";
-import { Img } from "../../ui/organisms/Img";
-import { TextArea } from "../../ui/organisms/TextArea";
+import { AppContext } from "../../../context/AppContextProvider";
+import { Img } from "../../organisms/Img";
+import { TextArea } from "../../organisms/TextArea";
 
 export type CanvasFieldsProps = {
   parentRef: ForwardedRef<HTMLDivElement>;

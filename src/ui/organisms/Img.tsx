@@ -1,18 +1,19 @@
-import { FC, memo, useContext } from "react";
+import { FC, memo, MouseEventHandler, useCallback, useContext } from "react";
 import { ResizeHandle } from "../atoms/ResizeHandle";
 import { MoveHandle } from "../atoms/MoveHandle";
 import { DeleteHandle } from "../atoms/DeleteHandle";
 import { useMoveResizer } from "../../hooks/use-move-resizer";
-import { AppContext, FieldType } from "../../context/AppContextProvider";
+import { AppContext } from "../../context/AppContextProvider";
+import { ImageFieldType } from "../../utils/types";
 
 export type ImgProps = {
-  field: Extract<FieldType, { type: "image" }>;
+  field: ImageFieldType;
   parentRef: React.RefObject<HTMLElement>;
 };
 
 export const Img: FC<ImgProps> = memo(({ parentRef, field }) => {
-  // TODO Wyciagnac do gory
-  const { removeField, changeActive } = useContext(AppContext);
+  const { removeField, changeActiveField } = useContext(AppContext);
+
   const { position, dimensions, handleMoveMouseDown, handleResizeMouseDown } = useMoveResizer({
     initialPosition: { x: 280, y: 366 },
     initialSize: { height: 200, width: 200 },
@@ -20,14 +21,23 @@ export const Img: FC<ImgProps> = memo(({ parentRef, field }) => {
     parentRef,
   });
 
+  const onImgClickHandler = useCallback<MouseEventHandler<HTMLDivElement>>(
+    (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      changeActiveField(field.id);
+    },
+    [changeActiveField],
+  );
+
+  const onDeleteHandler = useCallback<MouseEventHandler>(() => {
+    removeField(field.id);
+  }, [removeField]);
+
   return (
     <div
       className={`absolute border-2 border-[var(--primary)] flex justify-center items-center box-border`}
-      onClick={(e) => {
-        e.preventDefault();
-        e.stopPropagation();
-        changeActive(field.id);
-      }}
+      onClick={onImgClickHandler}
       style={{
         left: position.x,
         top: position.y,
@@ -37,13 +47,7 @@ export const Img: FC<ImgProps> = memo(({ parentRef, field }) => {
         ...(field.active && { zIndex: 10 }),
       }}>
       {field.active && <MoveHandle onMouseDown={handleMoveMouseDown} />}
-      {field.active && (
-        <DeleteHandle
-          onClick={() => {
-            removeField(field.id);
-          }}
-        />
-      )}
+      {field.active && <DeleteHandle onClick={onDeleteHandler} />}
 
       <img src={field.imgSource} className="object-cover w-full h-full" />
 

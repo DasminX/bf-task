@@ -1,11 +1,11 @@
 import { forwardRef, memo, ReactNode, useContext } from "react";
-import { cn } from "../../functions/cn";
-import { AppContext } from "../../context/AppContextProvider";
 import { CanvasFields } from "./CanvasFields";
+import { AppContext } from "../../../context/AppContextProvider";
+import { cn } from "../../../functions/cn";
 
 export const Canvas = memo(
   forwardRef<HTMLDivElement>((_, ref) => {
-    const { isCreating, background, changeActive } = useContext(AppContext);
+    const { isCreating, background, changeActiveField } = useContext(AppContext);
 
     const Outlet: ReactNode = isCreating ? (
       <CanvasFields parentRef={ref} />
@@ -23,7 +23,7 @@ export const Canvas = memo(
         onClick={(e) => {
           e.preventDefault();
           e.stopPropagation();
-          changeActive();
+          changeActiveField();
         }}
         style={{
           ...(background && { backgroundImage: `url(${background})` }),

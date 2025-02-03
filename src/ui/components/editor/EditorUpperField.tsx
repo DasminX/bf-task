@@ -1,8 +1,8 @@
-import { FC, useContext } from "react";
-import { Icon } from "../../ui/atoms/Icon";
-import { AppContext } from "../../context/AppContextProvider";
+import { FC, memo, useContext } from "react";
+import { AppContext } from "../../../context/AppContextProvider";
+import { Icon } from "../../atoms/Icon";
 
-export const EditorUpperField: FC = () => {
+export const EditorUpperField: FC = memo(() => {
   const { setIsModal } = useContext(AppContext);
 
   return (
@@ -23,4 +23,4 @@ export const EditorUpperField: FC = () => {
       </button>
     </div>
   );
-};
+});

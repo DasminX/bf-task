@@ -1,55 +1,47 @@
 import { FC, ReactNode, useState } from "react";
 import { createContext } from "react";
-import { Color } from "../utils/types";
-
-export type FieldType = { id: string; active: boolean } & (
-  | {
-      type: "text";
-      text: string;
-      selectedColor: Color;
-    }
-  | {
-      type: "image";
-      imgSource: string;
-    }
-);
+import { FieldType, TextFieldType } from "../utils/types";
 
 export type AppContextType = {
   isCreating: boolean;
-  setIsCreating: (bool: boolean) => void;
+  setIsCreating: (value: AppContextType["isCreating"]) => void;
 
   fields: FieldType[];
   addField: (field: FieldType) => void;
-  changeActive: (fieldId?: FieldType["id"]) => void;
-  updateSelectedColor: (fieldId: FieldType["id"], color: Extract<FieldType, { type: "text" }>["selectedColor"]) => void;
   removeField: (fieldId: FieldType["id"]) => void;
-  removeFields: () => void;
+  removeAllFields: () => void;
+
+  changeActiveField: (fieldId?: FieldType["id"]) => void;
+
+  updateSelectedColor: (fieldId: TextFieldType["id"], color: TextFieldType["selectedColor"]) => void;
 
   background: string | null;
-  setBackground: (bgSrc: string) => void;
+  setBackground: (bgSrc: AppContextType["background"]) => void;
   resetBackground: () => void;
 
   isModal: boolean;
-  setIsModal: (bool: boolean) => void;
+  setIsModal: (value: AppContextType["isModal"]) => void;
 };
 
 export const AppContext = createContext<AppContextType>({
   isCreating: false,
-  setIsCreating: (_bool: boolean) => {},
+  setIsCreating: (_value: AppContextType["isCreating"]) => {},
 
   fields: [],
   addField: (_field: FieldType) => {},
-  changeActive: (_fieldId?: FieldType["id"]) => {},
-  updateSelectedColor: (_fieldId: FieldType["id"], _color: Extract<FieldType, { type: "text" }>["selectedColor"]) => {},
   removeField: (_fieldId: FieldType["id"]) => {},
-  removeFields: () => {},
+  removeAllFields: () => {},
+
+  changeActiveField: (_fieldId?: FieldType["id"]) => {},
+
+  updateSelectedColor: (_fieldId: FieldType["id"], _color: Extract<FieldType, { type: "text" }>["selectedColor"]) => {},
 
   background: null,
-  setBackground: (_bgSrc: string) => {},
+  setBackground: (_bgSrc: AppContextType["background"]) => {},
   resetBackground: () => {},
 
   isModal: false,
-  setIsModal: (_bool: boolean) => {},
+  setIsModal: (_value: AppContextType["isModal"]) => {},
 });
 
 export type AppContextProviderProps = {
@@ -63,9 +55,7 @@ export const AppContextProvider: FC<AppContextProviderProps> = ({ children }) =>
 
   const setIsModalHandler = (bool: boolean) => setIsModal(bool);
 
-  const setIsCreatingHandler = (bool: boolean) => {
-    setIsCreating(bool);
-  };
+  const setIsCreatingHandler = (bool: boolean) => setIsCreating(bool);
 
   const addField: AppContextType["addField"] = (field: FieldType) => {
     setFields((prev) => [...prev.map((el) => ({ ...el, active: false })), field]);
@@ -86,7 +76,7 @@ export const AppContextProvider: FC<AppContextProviderProps> = ({ children }) =>
     });
   };
 
-  const changeActive = (fieldId?: FieldType["id"]) => {
+  const changeActiveField = (fieldId?: FieldType["id"]) => {
     setFields((prev) =>
       prev.map((el) => {
         if (el.id === fieldId) {
@@ -102,7 +92,7 @@ export const AppContextProvider: FC<AppContextProviderProps> = ({ children }) =>
     setFields((prev) => prev.filter((item) => item.id != fieldId));
   };
 
-  const removeFields: AppContextType["removeFields"] = () => {
+  const removeAllFields: AppContextType["removeAllFields"] = () => {
     setFields([]);
   };
 
@@ -122,10 +112,10 @@ export const AppContextProvider: FC<AppContextProviderProps> = ({ children }) =>
         fields,
         background: bg,
         addField,
-        changeActive,
+        changeActiveField,
         updateSelectedColor,
         removeField: removeFieldById,
-        removeFields,
+        removeAllFields,
         setBackground,
         resetBackground,
         isModal,

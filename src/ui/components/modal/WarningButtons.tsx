@@ -1,9 +1,9 @@
 import { FC, useContext } from "react";
-import { AppContext } from "../../context/AppContextProvider";
-import { Button } from "../../ui/atoms/Button";
+import { AppContext } from "../../../context/AppContextProvider";
+import { Button } from "../../atoms/Button";
 
 export const WarningButtons: FC = () => {
-  const { setIsModal, removeFields, resetBackground, setIsCreating } = useContext(AppContext);
+  const { setIsModal, removeAllFields, resetBackground, setIsCreating } = useContext(AppContext);
 
   return (
     <div className="h-10 w-96.75 gap-8 flex items-center justify-center">
@@ -16,7 +16,7 @@ export const WarningButtons: FC = () => {
       </p>
       <Button
         onClick={() => {
-          removeFields();
+          removeAllFields();
           resetBackground();
           setIsCreating(false);
           setIsModal(false);

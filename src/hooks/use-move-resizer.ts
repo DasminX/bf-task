@@ -10,7 +10,7 @@ export type UseMoveHookProps = {
     width: number;
     height: number;
   };
-  minSize: number;
+  minSize: { x: number; y: number } | number;
 };
 
 type MousePositionCoords = {
@@ -58,8 +58,10 @@ export const useMoveResizer = (props: UseMoveHookProps) => {
       let newWidth = resizeStart.current.width + deltaX;
       let newHeight = resizeStart.current.height + deltaY;
 
-      newWidth = Math.max(props.minSize, newWidth);
-      newHeight = Math.max(props.minSize, newHeight);
+      const minSizeX = typeof props.minSize === "object" ? props.minSize.x : props.minSize;
+      const minSizeY = typeof props.minSize === "object" ? props.minSize.y : props.minSize;
+      newWidth = Math.max(minSizeX, newWidth);
+      newHeight = Math.max(minSizeY, newHeight);
 
       newWidth = Math.min(newWidth, props.parentRef.current.clientWidth - position.x);
       newHeight = Math.min(newHeight, props.parentRef.current.clientHeight - position.y);

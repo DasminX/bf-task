@@ -5,10 +5,10 @@ import { Color } from "../../utils/types";
 export type TextColorProps = {
   color: Color;
   selected: boolean;
-  onClick: MouseEventHandler;
+  onSelect: MouseEventHandler;
 };
 
-export const TextColor: FC<TextColorProps> = memo(({ color, selected, onClick }) => {
+export const TextColor: FC<TextColorProps> = memo(({ color, selected, onSelect }) => {
   return (
     <div
       className={cn(
@@ -17,7 +17,7 @@ export const TextColor: FC<TextColorProps> = memo(({ color, selected, onClick })
       )}>
       <div className="w-5 h-5 flex justify-center items-center  bg-transparent">
         <div
-          onClick={onClick}
+          onClick={onSelect}
           className={`w-4 h-4 cursor-pointer rounded-full`}
           style={{
             backgroundColor: color,

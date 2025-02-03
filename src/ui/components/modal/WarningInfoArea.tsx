@@ -1,5 +1,5 @@
 import { FC } from "react";
-import { Icon } from "../../ui/atoms/Icon";
+import { Icon } from "../../atoms/Icon";
 
 export const WarningInfoArea: FC = () => {
   return (

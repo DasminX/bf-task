@@ -1,9 +1,9 @@
 import { FC, useContext, useEffect } from "react";
 import { createPortal } from "react-dom";
-import { Icon } from "../../ui/atoms/Icon";
 import { WarningInfoArea } from "./WarningInfoArea";
-import { AppContext } from "../../context/AppContextProvider";
 import { WarningButtons } from "./WarningButtons";
+import { AppContext } from "../../../context/AppContextProvider";
+import { Icon } from "../../atoms/Icon";
 
 export const WarningModal: FC = () => {
   const { setIsModal } = useContext(AppContext);

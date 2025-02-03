@@ -8,7 +8,8 @@
     "build": "tsc -b && vite build",
     "lint": "eslint .",
     "preview": "vite preview",
-    "prettify": "npx prettier ./src --write"
+    "prettify": "npx prettier ./src --write",
+    "fixpaths": "sed -i 's#/assets/#./assets/#g' ./dist/index.html"
   },
   "dependencies": {
     "@tailwindcss/vite": "^4.0.1",
