@@ -74,5 +74,5 @@ Dla tego wariantu, pliki będą dostępne z poziomu URL, który wystawiany jest 
 - do projektu można dodać testy
 - można dodać opcję "Wysuwanie na wierzch" elementów, które chcemy, aby były wyżej niż inne (przydatne przy tekście i obrazku nachodzącymi na siebie)
 - można dodać zablokowanie użycia przycisku "Export to PNG", gdy użytkownik nie zaczął edytować lub zresetował kreację
-- stworzenie Dockerfile, który utworzyłby serwer WWW (Apache), zbudował aplikację i uruchomił ją
+- stworzyć plik Dockerfile, który utworzyłby serwer WWW (Apache), zbudował aplikację i uruchomił ją
 - trzeba poprawić ustawienie pozycji elementu (tekst, obrazek) przy skalowaniu w góre (zwiększaniu ekranu) - w tej sytuacji pozycja elementu zostaje taka sama, a wielkość całej kreacji zwiększa się, więc element fizycznie się przesuwa. Obsłużone jest natomiast poprawne ustawianie pozycji przy zmniejszaniu kreacji.
