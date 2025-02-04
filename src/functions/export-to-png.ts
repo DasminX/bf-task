@@ -3,7 +3,28 @@ import html2canvas from "html2canvas";
 export const exportToPng = async (elementToExport: HTMLElement | null) => {
   if (!elementToExport) return;
   try {
-    const capturedCanvas = await html2canvas(elementToExport);
+    const capturedCanvas = await html2canvas(elementToExport, {
+      backgroundColor: null,
+      onclone: (clonedDocument) => {
+        clonedDocument.querySelectorAll("textarea").forEach((txta) => {
+          const p = clonedDocument.createElement("p");
+          const computedStyle = clonedDocument.defaultView?.getComputedStyle(txta);
+          if (computedStyle) {
+            for (let i = 0; i < computedStyle.length; i++) {
+              const propertyName = computedStyle[i];
+              const propertyValue = computedStyle.getPropertyValue(propertyName);
+              const propertyPriority = computedStyle.getPropertyPriority(propertyName);
+              p.style.setProperty(propertyName, propertyValue, propertyPriority);
+            }
+          }
+
+          p.style.whiteSpace = "pre-wrap";
+          p.innerHTML = txta.value.replace(/\n/g, "<br>");
+
+          txta.parentNode?.replaceChild(p, txta);
+        });
+      },
+    });
 
     const finalWidth = 1080;
     const finalHeight = 1350;

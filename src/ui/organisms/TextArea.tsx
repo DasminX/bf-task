@@ -62,7 +62,7 @@ export const TextArea: FC<TextAreaProps> = memo(({ field, parentRef, placeholder
       }}>
       <textarea
         spellCheck={false}
-        className="w-full h-full text-display text-center resize-none outline-none overflow-hidden placeholder:text-[var(--black)] placeholder:opacity-25"
+        className="w-full h-full text-display text-center resize-none outline-none overflow-wrap text-wrap placeholder:text-[var(--black)] placeholder:opacity-25"
         placeholder={placeholder}
         style={{
           color: `var(--${field.selectedColor})`,

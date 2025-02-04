@@ -70,9 +70,9 @@ Dla tego wariantu, pliki będą dostępne z poziomu URL, który wystawiany jest 
 
 ## 3. Możliwości ulepszenia aplikacji
 
-- należy poprawić funkcjonalność "Eksportowania do PNG" - tutaj jest problem taki, że przy Textarea ucina tekst, gdy jest zbyt długi (problem leży prawdopodobnie w paczce html2canvas lub jego użyciu - jeszcze nad tym popracuję :))
+- należy poprawić funkcjonalność "Eksportowania do PNG" - tutaj jest problem taki, że przy Textarea ucina tekst, gdy jest zbyt długi (problem leży prawdopodobnie w paczce html2canvas lub jego użyciu - jeszcze nad tym popracuję :)) EDIT: Done, już działa :)
 - do projektu można dodać testy
 - można dodać opcję "Wysuwanie na wierzch" elementów, które chcemy, aby były wyżej niż inne (przydatne przy tekście i obrazku nachodzącymi na siebie)
 - można dodać zablokowanie użycia przycisku "Export to PNG", gdy użytkownik nie zaczął edytować lub zresetował kreację
 - stworzenie Dockerfile, który utworzyłby serwer WWW (Apache), zbudował aplikację i uruchomił ją
-- trzeba poprawić ustawienie pozycji elementu (tekst, obrazek) przy skalowaniu w góre (zwiększaniu ekranu) - w tej sytuacji pozycja elementu zostaje taka sama, a wielkość całej kreacji zwiększa się, więc element fizycznie się przesuwa. Obsłużone jest natomiast poprawne ustawianie pozycji przy zmniejszaniu kreacji. 
+- trzeba poprawić ustawienie pozycji elementu (tekst, obrazek) przy skalowaniu w góre (zwiększaniu ekranu) - w tej sytuacji pozycja elementu zostaje taka sama, a wielkość całej kreacji zwiększa się, więc element fizycznie się przesuwa. Obsłużone jest natomiast poprawne ustawianie pozycji przy zmniejszaniu kreacji.
