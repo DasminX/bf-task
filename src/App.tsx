@@ -1,4 +1,4 @@
-import { useCallback, useContext, useEffect, useRef } from "react";
+import { useCallback, useContext, useEffect, useRef, useState } from "react";
 import { exportToPng } from "./functions/export-to-png";
 import { AppContext } from "./context/AppContextProvider";
 import { Canvas } from "./ui/components/canvas/Canvas";
@@ -7,12 +7,22 @@ import { WarningModal } from "./ui/components/modal/WarningModal";
 
 export default function App() {
   const { changeActiveField, isModal, removeField } = useContext(AppContext);
+  const [shouldExportToPng, setShouldExportToPng] = useState<boolean>(false);
   const exportRef = useRef<HTMLDivElement>(null);
 
-  const onExportToPngHandler = useCallback(async () => {
+  useEffect(() => {
+    if (shouldExportToPng) {
+      (async () => {
+        await exportToPng(exportRef.current);
+        setShouldExportToPng(false);
+      })();
+    }
+  }, [shouldExportToPng]);
+
+  const onExportToPngHandler = useCallback(() => {
     changeActiveField();
-    await exportToPng(exportRef.current);
-  }, [changeActiveField, exportToPng]);
+    setShouldExportToPng(true);
+  }, [changeActiveField]);
 
   const deleteKeyPressHandler = useCallback(
     (e: KeyboardEvent) => {
