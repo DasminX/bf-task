@@ -5,6 +5,7 @@ export const exportToPng = async (elementToExport: HTMLElement | null) => {
   try {
     const capturedCanvas = await html2canvas(elementToExport, {
       backgroundColor: null,
+      scale: 1,
       onclone: (clonedDocument) => {
         clonedDocument.querySelectorAll("textarea").forEach((txta) => {
           const p = clonedDocument.createElement("p");
@@ -53,7 +54,7 @@ export const exportToPng = async (elementToExport: HTMLElement | null) => {
       try {
         const handle = await window.showSaveFilePicker({
           startIn: "downloads",
-          suggestedName: "Wojciech_Szpila_zadanie_rekrutacyjne_ByteFine",
+          suggestedName: "CanvasEditor",
           types: [
             {
               description: "PNG Image",
@@ -75,7 +76,7 @@ export const exportToPng = async (elementToExport: HTMLElement | null) => {
       const pngDataUrl = finalCanvas.toDataURL("image/png");
       const link = document.createElement("a");
       link.href = pngDataUrl;
-      link.download = "Wojciech_Szpila_zadanie_rekrutacyjne_ByteFine.png";
+      link.download = "CanvasEditor.png";
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);
